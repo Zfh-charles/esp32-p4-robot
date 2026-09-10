@@ -1,0 +1,315 @@
+{
+  "schema": "dialogue-emotion-profile-v1",
+  "emotions": {
+    "standby": {
+      "segments": {
+        "enter": {
+          "start": 0,
+          "end": 25
+        },
+        "hold": {
+          "start": 26,
+          "end": 51
+        },
+        "exit": {
+          "start": 52,
+          "end": 77
+        }
+      },
+      "mouth_roi": {
+        "x": 180,
+        "y": 216,
+        "width": 112,
+        "height": 56
+      },
+      "mouth_frames": {
+        "closed": 34,
+        "small": 50,
+        "medium": 29,
+        "large": 41
+      },
+      "eye_roi": {
+        "x": 152,
+        "y": 128,
+        "width": 192,
+        "height": 56
+      },
+      "eye_frames": {
+        "closed": 29,
+        "half": 37,
+        "open": 40
+      },
+      "pose_1_frame": 50,
+      "mouth_level_feather_scale": {},
+      "mouth_activity_expand_px": {},
+      "render_mode": "layered",
+      "auto_suggested_mouth_roi": {
+        "x": 180,
+        "y": 216,
+        "width": 112,
+        "height": 56
+      },
+      "life_track_policy": {
+        "approved_auto_tracks": [
+          1
+        ],
+        "semantic_labels": {
+          "1": "body_breathe"
+        }
+      }
+    },
+    "neutral": {
+      "segments": {
+        "enter": {
+          "start": 0,
+          "end": 34
+        },
+        "hold": {
+          "start": 35,
+          "end": 70
+        },
+        "exit": {
+          "start": 71,
+          "end": 106
+        }
+      },
+      "mouth_roi": {
+        "x": 180,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      },
+      "mouth_frames": {
+        "closed": 65,
+        "small": 47,
+        "medium": 50,
+        "large": 57
+      },
+      "eye_roi": {
+        "x": 116,
+        "y": 128,
+        "width": 192,
+        "height": 56
+      },
+      "eye_frames": {
+        "closed": 69,
+        "half": 40,
+        "open": 37
+      },
+      "pose_1_frame": 48,
+      "mouth_level_feather_scale": {},
+      "mouth_activity_expand_px": {},
+      "render_mode": "layered",
+      "auto_suggested_mouth_roi": {
+        "x": 180,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      }
+    },
+    "happy": {
+      "segments": {
+        "enter": {
+          "start": 0,
+          "end": 29
+        },
+        "hold": {
+          "start": 30,
+          "end": 59
+        },
+        "exit": {
+          "start": 60,
+          "end": 89
+        }
+      },
+      "mouth_roi": {
+        "x": 180,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      },
+      "mouth_frames": {
+        "closed": 41,
+        "small": 56,
+        "medium": 44,
+        "large": 46
+      },
+      "eye_roi": {
+        "x": 152,
+        "y": 116,
+        "width": 192,
+        "height": 56
+      },
+      "eye_frames": {
+        "closed": 45,
+        "half": 56,
+        "open": 33
+      },
+      "pose_1_frame": 56,
+      "mouth_level_feather_scale": {},
+      "mouth_activity_expand_px": {},
+      "render_mode": "layered",
+      "auto_suggested_mouth_roi": {
+        "x": 180,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      },
+      "life_track_policy": {
+        "approved_auto_tracks": [
+          1
+        ],
+        "semantic_labels": {
+          "1": "body_weight_shift"
+        }
+      }
+    },
+    "sad": {
+      "segments": {
+        "enter": {
+          "start": 0,
+          "end": 29
+        },
+        "hold": {
+          "start": 30,
+          "end": 59
+        },
+        "exit": {
+          "start": 60,
+          "end": 90
+        }
+      },
+      "mouth_roi": {
+        "x": 204,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      },
+      "mouth_frames": {
+        "closed": 41,
+        "small": 43,
+        "medium": 48,
+        "large": 30
+      },
+      "eye_roi": {
+        "x": 116,
+        "y": 140,
+        "width": 192,
+        "height": 56
+      },
+      "eye_frames": {
+        "closed": 33,
+        "half": 52,
+        "open": 46
+      },
+      "pose_1_frame": 50,
+      "mouth_level_feather_scale": {},
+      "mouth_activity_expand_px": {},
+      "render_mode": "layered",
+      "auto_suggested_mouth_roi": {
+        "x": 204,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      }
+    },
+    "angry": {
+      "segments": {
+        "enter": {
+          "start": 0,
+          "end": 33
+        },
+        "hold": {
+          "start": 34,
+          "end": 68
+        },
+        "exit": {
+          "start": 69,
+          "end": 103
+        }
+      },
+      "mouth_roi": {
+        "x": 192,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      },
+      "mouth_frames": {
+        "closed": 44,
+        "small": 38,
+        "medium": 57,
+        "large": 50
+      },
+      "eye_roi": {
+        "x": 128,
+        "y": 128,
+        "width": 192,
+        "height": 56
+      },
+      "eye_frames": {
+        "closed": 35,
+        "half": 53,
+        "open": 48
+      },
+      "pose_1_frame": 58,
+      "mouth_level_feather_scale": {},
+      "mouth_activity_expand_px": {},
+      "render_mode": "layered",
+      "auto_suggested_mouth_roi": {
+        "x": 192,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      }
+    },
+    "loving": {
+      "segments": {
+        "enter": {
+          "start": 0,
+          "end": 23
+        },
+        "hold": {
+          "start": 24,
+          "end": 48
+        },
+        "exit": {
+          "start": 49,
+          "end": 73
+        }
+      },
+      "mouth_roi": {
+        "x": 216,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      },
+      "mouth_frames": {
+        "closed": 44,
+        "small": 47,
+        "medium": 36,
+        "large": 38
+      },
+      "eye_roi": {
+        "x": 176,
+        "y": 128,
+        "width": 192,
+        "height": 56
+      },
+      "eye_frames": {
+        "closed": 25,
+        "half": 40,
+        "open": 38
+      },
+      "pose_1_frame": 34,
+      "mouth_level_feather_scale": {},
+      "mouth_activity_expand_px": {},
+      "render_mode": "layered",
+      "auto_suggested_mouth_roi": {
+        "x": 216,
+        "y": 204,
+        "width": 112,
+        "height": 56
+      }
+    }
+  }
+}

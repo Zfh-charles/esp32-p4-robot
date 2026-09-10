@@ -1,0 +1,70 @@
+{
+  "schema": "dialogue-emotion-pack-v2",
+  "version": 2,
+  "runtime_contract": {
+    "screen": {
+      "width": 480,
+      "height": 480,
+      "pixel_format": "rgb565-le"
+    },
+    "asset_root": "/sdcard/dialogue_v2",
+    "max_rows_per_tick": 48,
+    "max_layers_per_tick": 1,
+    "delivery": "latest_drop_old"
+  },
+  "state_machine": {
+    "states": [
+      "standby",
+      "enter",
+      "hold",
+      "exit"
+    ],
+    "emotion_slots": [
+      "requested",
+      "pending",
+      "committed"
+    ],
+    "tts_flow": [
+      "enter",
+      "hold",
+      "exit"
+    ],
+    "mouth_signal": {
+      "source": "smoothed_audio_rms",
+      "levels": [
+        "closed",
+        "small",
+        "medium",
+        "large"
+      ],
+      "delivery": "latest_value",
+      "lvgl_from_audio_task": false
+    }
+  },
+  "capabilities": [
+    "full_frame_clip",
+    "fixed_roi_clip",
+    "layered",
+    "static"
+  ],
+  "legacy_fallback": {
+    "enabled": true,
+    "root": "/sdcard/mjpeg",
+    "files": [
+      "standby.mjpeg",
+      "neutral.mjpeg",
+      "happy.mjpeg",
+      "sad.mjpeg",
+      "angry.mjpeg",
+      "loving.mjpeg"
+    ]
+  },
+  "clips": {
+    "standby": "standby/manifest.json",
+    "neutral": "neutral/manifest.json",
+    "happy": "happy/manifest.json",
+    "sad": "sad/manifest.json",
+    "angry": "angry/manifest.json",
+    "loving": "loving/manifest.json"
+  }
+}

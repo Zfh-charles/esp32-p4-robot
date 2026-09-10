@@ -1,0 +1,15 @@
+{
+  "ok": true,
+  "errors": [],
+  "clips": 6,
+  "contract_warnings": [
+    "neutral.life[0]: auto motion track is not semantically approved",
+    "neutral.life[1]: auto motion track is not semantically approved",
+    "sad.life[0]: auto motion track is not semantically approved",
+    "sad.life[1]: auto motion track is not semantically approved",
+    "angry.life[0]: auto motion track is not semantically approved",
+    "angry.life[1]: auto motion track is not semantically approved",
+    "loving.life[0]: auto motion track is not semantically approved",
+    "loving.life[1]: auto motion track is not semantically approved"
+  ]
+}

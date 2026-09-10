@@ -1,0 +1,48 @@
+{
+  "ok": true,
+  "errors": [],
+  "warnings": [],
+  "clips": [
+    {
+      "emotion": "standby",
+      "mode": "layered",
+      "life_tracks": 1,
+      "unreviewed_life_tracks": 0
+    },
+    {
+      "emotion": "neutral",
+      "mode": "layered",
+      "life_tracks": 0,
+      "unreviewed_life_tracks": 0
+    },
+    {
+      "emotion": "happy",
+      "mode": "layered",
+      "life_tracks": 1,
+      "unreviewed_life_tracks": 0
+    },
+    {
+      "emotion": "sad",
+      "mode": "layered",
+      "life_tracks": 0,
+      "unreviewed_life_tracks": 0
+    },
+    {
+      "emotion": "angry",
+      "mode": "layered",
+      "life_tracks": 0,
+      "unreviewed_life_tracks": 0
+    },
+    {
+      "emotion": "loving",
+      "mode": "layered",
+      "life_tracks": 0,
+      "unreviewed_life_tracks": 0
+    }
+  ],
+  "firmware_contract": {
+    "screen": "480x480",
+    "max_rows_per_tick": 48,
+    "max_layers_per_tick": 1
+  }
+}

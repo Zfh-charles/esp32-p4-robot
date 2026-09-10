@@ -1,0 +1,63 @@
+{
+  "ok": true,
+  "errors": [],
+  "warnings": [
+    "neutral.life[0]: auto motion track is not semantically approved",
+    "neutral.life[1]: auto motion track is not semantically approved",
+    "sad.life[0]: auto motion track is not semantically approved",
+    "sad.life[1]: auto motion track is not semantically approved",
+    "angry.life[0]: auto motion track is not semantically approved",
+    "angry.life[1]: auto motion track is not semantically approved",
+    "loving.life[0]: auto motion track is not semantically approved",
+    "loving.life[1]: auto motion track is not semantically approved"
+  ],
+  "clips": [
+    {
+      "emotion": "standby",
+      "mode": "layered",
+      "life_tracks": 1,
+      "life_choreographies": 1,
+      "unreviewed_life_tracks": 0
+    },
+    {
+      "emotion": "neutral",
+      "mode": "layered",
+      "life_tracks": 2,
+      "life_choreographies": 0,
+      "unreviewed_life_tracks": 2
+    },
+    {
+      "emotion": "happy",
+      "mode": "layered",
+      "life_tracks": 1,
+      "life_choreographies": 1,
+      "unreviewed_life_tracks": 0
+    },
+    {
+      "emotion": "sad",
+      "mode": "layered",
+      "life_tracks": 2,
+      "life_choreographies": 0,
+      "unreviewed_life_tracks": 2
+    },
+    {
+      "emotion": "angry",
+      "mode": "layered",
+      "life_tracks": 2,
+      "life_choreographies": 0,
+      "unreviewed_life_tracks": 2
+    },
+    {
+      "emotion": "loving",
+      "mode": "layered",
+      "life_tracks": 2,
+      "life_choreographies": 0,
+      "unreviewed_life_tracks": 2
+    }
+  ],
+  "firmware_contract": {
+    "screen": "480x480",
+    "max_rows_per_tick": 48,
+    "max_layers_per_tick": 1
+  }
+}
