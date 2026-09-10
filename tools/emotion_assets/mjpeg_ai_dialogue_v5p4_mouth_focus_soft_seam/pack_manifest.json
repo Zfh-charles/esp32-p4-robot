@@ -1,0 +1,58 @@
+{
+  "schema": "dialogue-emotion-pack-v2",
+  "version": 2,
+  "state_machine": {
+    "states": [
+      "standby",
+      "enter",
+      "hold",
+      "exit"
+    ],
+    "emotion_slots": [
+      "requested",
+      "pending",
+      "committed"
+    ],
+    "tts_flow": [
+      "enter",
+      "hold",
+      "exit"
+    ],
+    "mouth_signal": {
+      "source": "smoothed_audio_rms",
+      "levels": [
+        "closed",
+        "small",
+        "medium",
+        "large"
+      ],
+      "delivery": "latest_value",
+      "lvgl_from_audio_task": false
+    }
+  },
+  "capabilities": [
+    "full_frame_clip",
+    "fixed_roi_clip",
+    "layered",
+    "static"
+  ],
+  "legacy_fallback": {
+    "enabled": true,
+    "files": [
+      "standby.mjpeg",
+      "neutral.mjpeg",
+      "happy.mjpeg",
+      "sad.mjpeg",
+      "angry.mjpeg",
+      "loving.mjpeg"
+    ]
+  },
+  "clips": {
+    "standby": "standby/manifest.json",
+    "neutral": "neutral/manifest.json",
+    "happy": "happy/manifest.json",
+    "sad": "sad/manifest.json",
+    "angry": "angry/manifest.json",
+    "loving": "loving/manifest.json"
+  }
+}
