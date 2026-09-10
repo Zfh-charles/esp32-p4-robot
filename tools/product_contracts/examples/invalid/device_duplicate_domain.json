@@ -1,0 +1,1 @@
+{"schema":"device-capability-v1","version":1,"board":{"id":"bad","soc":"x","revision":"x"},"memory":{"internal_sram_bytes":0,"psram_bytes":0},"resource_domains":[{"name":"bus","kind":"bus"},{"name":"bus","kind":"bus"}],"capabilities":[]}

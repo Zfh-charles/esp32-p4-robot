@@ -1,0 +1,22 @@
+{
+  "schema": "device-capability-v1",
+  "version": 1,
+  "board": {"id": "future-sensor-demo", "soc": "unspecified", "revision": "planning-only"},
+  "memory": {"internal_sram_bytes": 0, "psram_bytes": 0},
+  "resource_domains": [
+    {"name": "system_memory", "kind": "memory"},
+    {"name": "sensor_bus", "kind": "bus"},
+    {"name": "camera_dma", "kind": "dma"},
+    {"name": "inference_compute", "kind": "cpu"},
+    {"name": "radio", "kind": "network"},
+    {"name": "power_rail", "kind": "power"}
+  ],
+  "capabilities": [
+    {"name": "camera", "kind": "camera", "present": true, "driver": null, "resource_domains": ["camera_dma", "system_memory", "power_rail"], "limits": {"mode": "snapshot_first"}},
+    {"name": "presence_radar", "kind": "mmwave", "present": true, "driver": null, "resource_domains": ["sensor_bus", "power_rail"], "limits": {"event_driven": true}},
+    {"name": "environment_sensor", "kind": "environment", "present": true, "driver": null, "resource_domains": ["sensor_bus"], "limits": {"max_sample_hz": 1}},
+    {"name": "temperature_sensor", "kind": "temperature", "present": true, "driver": null, "resource_domains": ["sensor_bus"], "limits": {"max_sample_hz": 1}},
+    {"name": "edge_inference", "kind": "edge_accelerator", "present": true, "driver": null, "resource_domains": ["inference_compute", "system_memory", "power_rail"], "limits": {"admission_control_required": true}},
+    {"name": "wifi", "kind": "network", "present": true, "driver": null, "resource_domains": ["radio", "power_rail"]}
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "schema_version": "p4.full-frame-regression.v1",
+  "trace_id": "s1gk.second_wake.tts_second_full_frame",
+  "source": {
+    "fw_marker": "boot_trace_v10_s1gk_g4_clock_isolated",
+    "sanitized": true,
+    "evidence_log": "crash_COM7_20260826_1800_s1gk.log"
+  },
+  "proof_boundary": "Exact event ordering from hardware log; offline policy oracle only, not a production-path or hardware fix proof.",
+  "events": [
+    {"seq": 1, "type": "Visual.SpeechBegin", "generation": 6},
+    {"seq": 2, "type": "Emotion.SemanticRequested", "emotion": "happy", "layered_capable": true},
+    {"seq": 3, "type": "Emotion.FullFrameRequested", "emotion": "happy", "source": "static_hold_native", "rows": 480},
+    {"seq": 4, "type": "Visual.FullFrameCompleted", "emotion": "happy", "source": "static_hold_native", "rows": 480},
+    {"seq": 5, "type": "Audio.TtsFirst"},
+    {"seq": 6, "type": "Emotion.FullFrameRequested", "emotion": "happy", "source": "mouth_canonical_base", "rows": 480},
+    {"seq": 7, "type": "Visual.FullFrameCompleted", "emotion": "happy", "source": "mouth_canonical_base", "rows": 480},
+    {"seq": 8, "type": "Emotion.SemanticRequested", "emotion": "neutral", "layered_capable": true},
+    {"seq": 9, "type": "Emotion.FullFrameRequested", "emotion": "neutral", "source": "late_static_hold_native", "rows": 480},
+    {"seq": 10, "type": "Reset.LoadAccessFaultWdt"}
+  ],
+  "unsafe_observation": {
+    "full_frame_transactions": 3,
+    "transactions_after_tts_first": 2,
+    "synchronous_pack_bind_on_main_event_loop": true,
+    "presenter_call_duration_ms": 1357
+  },
+  "target_policy": {
+    "max_full_frame_commits_per_speech_generation": 1,
+    "full_frame_commit_after_tts_first": false,
+    "synchronous_pack_bind_after_speech_begin": false,
+    "preferred_opening_source": "mouth_canonical_base"
+  }
+}

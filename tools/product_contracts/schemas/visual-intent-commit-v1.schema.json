@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xiaozhi.local/schemas/visual-intent-commit-v1.schema.json",
+  "title": "Visual Intent or Commit v1",
+  "type": "object",
+  "required": [
+    "schema", "version", "kind", "emotion", "phase", "generation", "deadline_ms"
+  ],
+  "properties": {
+    "schema": {"const": "visual-intent-commit-v1"},
+    "version": {"const": 1},
+    "kind": {"enum": ["visual_intent", "visual_commit"]},
+    "emotion": {
+      "enum": ["standby", "happy", "sad", "angry", "loving", "neutral"]
+    },
+    "phase": {"enum": ["enter", "hold", "speaking", "exit", "idle"]},
+    "generation": {"type": "integer", "minimum": 0},
+    "deadline_ms": {"type": "integer", "minimum": 1},
+    "desired_layers": {
+      "type": "array",
+      "items": {
+        "enum": ["mouth_face", "eyes_brows", "body_life", "enter", "exit"]
+      },
+      "uniqueItems": true
+    },
+    "backend": {
+      "enum": [
+        "full_frame_safe", "composite_sprite", "band_delta", "static_seed"
+      ]
+    },
+    "composition": {"enum": ["precomposed_opaque"]},
+    "base_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "pose_id": {"type": "string", "minLength": 1},
+    "resource_claim": {"type": "string", "minLength": 1},
+    "drop_policy": {"enum": ["drop_expired_no_replay"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"kind": {"const": "visual_commit"}}},
+      "then": {
+        "required": [
+          "backend", "composition", "base_sha256", "pose_id",
+          "resource_claim", "drop_policy"
+        ]
+      }
+    }
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,58 @@
+CONFIG_IDF_TARGET="esp32p4"
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+
+CONFIG_SPIRAM=y
+# This board is a P4 **revision v1.0**, which carries errata MSPI-750 /
+# MSPI-751 (fixed only in v3.1): on random DMA/CACHE access to PSRAM, a write
+# followed by a read of the same range can return the *pre-write* data, because
+# the MSPI address-overlap detection has an asynchronous timing defect. That
+# reads back stale heap metadata or a stale pointer, so the reader takes a
+# LoadAccessFault on a perfectly valid PSRAM address.
+#
+# s1ci: MSPI-751's workaround is a frequency-*ratio* constraint —
+# N x freq_core >= freq_axi, where freq_core is the MSPI core clock (this
+# setting) and freq_axi is the AXI bus clock; N is 1..4 depending on AXI
+# concatenation and timing grade. So the safe direction is a **high** MSPI
+# clock. 20M (s1cf) pushed the ratio far deeper into the unsafe zone, which is
+# why it did not reduce the fault rate at all (mean lifetime 76s, still
+# nibble-shifted mtval at tlsf_walk_pool) while costing ~10x MSPI bandwidth:
+# present_ms 13 -> 200 and afe_fetch stalls of 250ms. 200M satisfies the
+# constraint for N>=2. What does move the fault rate is PSRAM traffic
+# (s1cg 83s -> s1ch 870s by dropping the tlsf heap walks), so the lever is
+# traffic, not clock. ECC would NOT help: it corrects stored bit flips, while
+# the data in PSRAM is itself correct.
+CONFIG_SPIRAM_SPEED_200M=y
+# XiP from PSRAM moves .text/.rodata onto the PSRAM MSPI bus, which already
+# carries the 14MB emotion cache, the LVGL framebuffer and the AFE buffers.
+# Saturating it faults whatever code happens to be executing (s1bd: esp_sr FFT
+# kernel, LoadAccessFault on a valid PSRAM address). Keep code on the flash bus.
+CONFIG_SPIRAM_XIP_FROM_PSRAM=n
+CONFIG_SPIRAM_FETCH_INSTRUCTIONS=n
+CONFIG_SPIRAM_RODATA=n
+CONFIG_SPIRAM_FLASH_LOAD_TO_PSRAM=n
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=10240
+CONFIG_FREERTOS_HZ=1000
+# s1dd: the dual-core RISC-V interrupt stack hit its hardware guard while
+# display and scheduler interrupts nested. 1536 bytes/core was insufficient.
+CONFIG_FREERTOS_ISR_STACKSIZE=3072
+CONFIG_FREERTOS_VTASKLIST_INCLUDE_COREID=y
+CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS=y
+
+CONFIG_SPIRAM_MALLOC_ALWAYSINTERNAL=4096
+CONFIG_SPIRAM_MALLOC_RESERVE_INTERNAL=65536
+CONFIG_SPIRAM_TRY_ALLOCATE_WIFI_LWIP=y
+# IDF default is y. It was disabled here for faster boot, which also removed the
+# only PSRAM integrity self-check. s1bd faults on valid PSRAM addresses, so the
+# check has to be back on: it aborts with an address on failure.
+CONFIG_SPIRAM_MEMTEST=y
+CONFIG_MBEDTLS_EXTERNAL_MEM_ALLOC=y
+
+CONFIG_SLAVE_IDF_TARGET_ESP32C6=y
+
+CONFIG_SR_WN_WN9_NIHAOXIAOYI_TTS2=y
+
+CONFIG_IDF_EXPERIMENTAL_FEATURES=y
+
+# LVGL Graphics
+CONFIG_LV_USE_SNAPSHOT=y

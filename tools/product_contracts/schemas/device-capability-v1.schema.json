@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xiaozhi.local/schemas/device-capability-v1.schema.json",
+  "title": "Device Capability v1",
+  "type": "object",
+  "required": [
+    "schema", "version", "board", "memory", "resource_domains", "capabilities"
+  ],
+  "properties": {
+    "schema": {"const": "device-capability-v1"},
+    "version": {"const": 1},
+    "board": {
+      "type": "object",
+      "required": ["id", "soc", "revision"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "soc": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "memory": {
+      "type": "object",
+      "required": ["internal_sram_bytes", "psram_bytes"],
+      "properties": {
+        "internal_sram_bytes": {"type": "integer", "minimum": 0},
+        "psram_bytes": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "resource_domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "kind"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "kind": {
+            "enum": ["cpu", "memory", "dma", "bus", "storage", "network", "power"]
+          },
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "kind", "present", "resource_domains"],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "kind": {
+            "enum": [
+              "audio", "display", "storage", "network", "camera", "mmwave",
+              "environment", "temperature", "edge_accelerator"
+            ]
+          },
+          "present": {"type": "boolean"},
+          "driver": {"type": ["string", "null"]},
+          "resource_domains": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1}
+          },
+          "limits": {"type": "object"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

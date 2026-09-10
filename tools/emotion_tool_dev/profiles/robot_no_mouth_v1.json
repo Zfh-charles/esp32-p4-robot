@@ -1,0 +1,16 @@
+{
+  "schema": "character-profile-v1", "version": 1,
+  "pack_id": "robot-no-mouth-dry-run-v1",
+  "character": {
+    "id": "robot-no-mouth", "display_name": "无嘴机器人结构测试", "archetype": "robot",
+    "canvas": {"width": 320, "height": 320, "pixel_format": "rgb565-le"}
+  },
+  "canonical_emotions": {
+    "standby": {"source_emotion": "standby", "state": "degraded", "backend": "static_seed", "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false}, "approved_layers": [], "resource_claims": ["visual.emotion.static"], "review": {"status": "approved", "notes": "不伪造人物嘴眼坐标"}},
+    "happy": {"source_emotion": "happy", "state": "degraded", "backend": "static_seed", "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false}, "approved_layers": [], "resource_claims": ["visual.emotion.static"], "review": {"status": "approved", "notes": "以角色整体姿态表达"}},
+    "sad": {"source_emotion": "sad", "state": "degraded", "backend": "static_seed", "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false}, "approved_layers": [], "resource_claims": ["visual.emotion.static"], "review": {"status": "approved", "notes": "以角色整体姿态表达"}},
+    "angry": {"source_emotion": "angry", "state": "degraded", "backend": "static_seed", "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false}, "approved_layers": [], "resource_claims": ["visual.emotion.static"], "review": {"status": "approved", "notes": "以角色整体姿态表达"}},
+    "loving": {"source_emotion": "loving", "state": "degraded", "backend": "static_seed", "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false}, "approved_layers": [], "resource_claims": ["visual.emotion.static"], "review": {"status": "pending", "notes": "等待该IP自己的光效资源"}},
+    "neutral": {"source_emotion": "neutral", "state": "supported", "backend": "static_seed", "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false}, "approved_layers": [], "resource_claims": ["visual.emotion.static"], "review": {"status": "approved", "notes": "结构测试通过不等于媒体可发布"}}
+  }
+}

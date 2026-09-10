@@ -1,0 +1,10 @@
+{
+  "schema": "resource-claim-v1", "version": 1,
+  "name": "inference.local.intent", "producer": "edge_inference", "class": "inference",
+  "timing": {"deadline_ms": 500, "wcet_us": 120000, "period_ms": null},
+  "memory": {"internal_sram_bytes": 16384, "psram_bytes": 2097152},
+  "burst": {"psram_read_bytes": 524288, "psram_write_bytes": 131072},
+  "dma_domains": ["mspi_psram"],
+  "power": {"average_mw": null, "peak_mw": null},
+  "policy": {"droppable": true, "queue": "latest_value", "expiry_ms": 500, "degradation_chain": ["lower_rate", "smaller_model", "cloud_fallback", "disable"]}
+}

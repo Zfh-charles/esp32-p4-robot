@@ -1,0 +1,107 @@
+{
+  "schema_version": "0.1",
+  "design": "EP Chat P4 reverse baseline and Wi-Fi variant",
+  "maturity": "schematic-input-not-production-release",
+  "evidence_levels": [
+    "FIRMWARE_CONFIRMED",
+    "OFFICIAL_REFERENCE",
+    "PROPOSED",
+    "TBD_PHYSICAL"
+  ],
+  "current_board": {
+    "soc": "ESP32-P4",
+    "network": {
+      "device": "ML307",
+      "transport": "UART",
+      "nets": {
+        "P4_GPIO37": "ML307_TX_to_host_RX",
+        "P4_GPIO38": "ML307_RX_from_host_TX"
+      },
+      "evidence": "FIRMWARE_CONFIRMED"
+    },
+    "storage": {
+      "device": "MicroSD",
+      "controller": "SDMMC_SLOT0",
+      "nets": {
+        "P4_GPIO43": "SD_CLK",
+        "P4_GPIO44": "SD_CMD",
+        "P4_GPIO39": "SD_D0",
+        "P4_GPIO40": "SD_D1",
+        "P4_GPIO41": "SD_D2",
+        "P4_GPIO42": "SD_D3"
+      },
+      "evidence": "FIRMWARE_CONFIRMED"
+    },
+    "audio": {
+      "devices": ["ES8311", "ES7210", "speaker_pa"],
+      "i2s": {
+        "P4_GPIO13": "MCLK",
+        "P4_GPIO10": "WS_LRCK",
+        "P4_GPIO12": "BCLK",
+        "P4_GPIO11": "DIN",
+        "P4_GPIO9": "DOUT"
+      },
+      "control": {
+        "P4_GPIO7": "I2C_SDA",
+        "P4_GPIO8": "I2C_SCL",
+        "P4_GPIO1": "PA_EN"
+      },
+      "evidence": "FIRMWARE_CONFIRMED"
+    },
+    "battery_gauge": {
+      "device": "BQ27220",
+      "bus": "shared_I2C_GPIO7_GPIO8",
+      "evidence": "FIRMWARE_CONFIRMED"
+    },
+    "display": {
+      "panel": "ST7701_480x480",
+      "transport": "MIPI_DSI_2_LANE",
+      "nets": {
+        "P4_GPIO27": "LCD_RESET",
+        "P4_GPIO26": "LCD_BACKLIGHT"
+      },
+      "evidence": "FIRMWARE_CONFIRMED"
+    }
+  },
+  "wifi_variant": {
+    "architecture": "ESP32-P4_host_plus_ESP32-C6_coprocessor",
+    "module_options": [
+      "ESP32-C6-MINI-1-N4",
+      "ESP32-C6-MINI-1U-N4"
+    ],
+    "host_transport": "SDMMC_SLOT1_4BIT",
+    "nets": [
+      {"signal": "SDIO_CLK", "p4": "GPIO18", "c6": "GPIO19", "pull": "none", "series_option": "0R_22R_33R"},
+      {"signal": "SDIO_CMD", "p4": "GPIO19", "c6": "GPIO18", "pull": "51k_to_3V3_C6", "series_option": "0R_22R_33R"},
+      {"signal": "SDIO_D0", "p4": "GPIO14", "c6": "GPIO20", "pull": "51k_to_3V3_C6", "series_option": "0R_22R_33R"},
+      {"signal": "SDIO_D1", "p4": "GPIO15", "c6": "GPIO21", "pull": "51k_to_3V3_C6", "series_option": "0R_22R_33R"},
+      {"signal": "SDIO_D2", "p4": "GPIO16", "c6": "GPIO22", "pull": "51k_to_3V3_C6", "series_option": "0R_22R_33R"},
+      {"signal": "SDIO_D3", "p4": "GPIO17", "c6": "GPIO23", "pull": "51k_to_3V3_C6", "series_option": "0R_22R_33R"},
+      {"signal": "C6_RESET", "p4": "GPIO54", "c6": "EN_RST", "pull": "per_latest_reference", "series_option": "0R"}
+    ],
+    "programming_interface": ["3V3_SENSE", "GND", "U0TXD", "U0RXD", "EN", "GPIO9_BOOT"],
+    "power": {
+      "rail": "3V3_C6",
+      "allowed_voltage": "3.0V_to_3.6V",
+      "official_minimum_supply_capability": "0.5A",
+      "proposed_regulator_capability": "0.6A_to_0.8A_subject_to_EVT_measurement"
+    },
+    "evidence": "OFFICIAL_REFERENCE_plus_PROPOSED"
+  },
+  "hard_checks_before_layout": [
+    "Confirm P4 GPIO14-19 and GPIO54 are physically available on the target PCB",
+    "Confirm no boot strap test fixture or hidden device conflicts",
+    "Confirm P4 silicon revision and revision-specific schematic requirements",
+    "Confirm complete board power tree and C6 transient current margin",
+    "Confirm C6 antenna keepout in the real enclosure",
+    "Confirm SDIO trace stackup length matching and return path",
+    "Confirm ML307 and C6 are mutually isolated in each BOM variant"
+  ],
+  "primary_sources": [
+    "https://dl.espressif.com/dl/schematics/esp32-p4-function-ev-board-schematics_v1.52.pdf",
+    "https://github.com/espressif/esp-hosted-mcu/blob/main/docs/sdio.md",
+    "https://github.com/espressif/esp-hosted-mcu/blob/main/docs/esp32_p4_function_ev_board.md",
+    "https://documentation.espressif.com/esp32-c6-mini-1_mini-1u_datasheet_en.html"
+  ]
+}
+

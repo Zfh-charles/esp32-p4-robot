@@ -1,0 +1,34 @@
+domain,signal,current_p4_gpio,current_peer,proposed_wifi_p4_gpio,proposed_wifi_peer,status,confidence,design_note
+audio,I2S_MCLK,GPIO13,Audio codec,,,keep,FIRMWARE_CONFIRMED,24 kHz audio chain; do not repurpose
+audio,I2S_WS,GPIO10,Audio codec,,,keep,FIRMWARE_CONFIRMED,Do not repurpose
+audio,I2S_BCLK,GPIO12,Audio codec,,,keep,FIRMWARE_CONFIRMED,Do not repurpose
+audio,I2S_DIN,GPIO11,Audio codec,,,keep,FIRMWARE_CONFIRMED,Do not repurpose
+audio,I2S_DOUT,GPIO9,Audio codec,,,keep,FIRMWARE_CONFIRMED,Do not repurpose
+audio,PA_EN,GPIO1,Speaker PA,,,keep,FIRMWARE_CONFIRMED,Power timing and active level require schematic confirmation
+i2c,I2C_SDA,GPIO7,"ES8311/ES7210/BQ27220",,,keep,FIRMWARE_CONFIRMED,Shared bus
+i2c,I2C_SCL,GPIO8,"ES8311/ES7210/BQ27220",,,keep,FIRMWARE_CONFIRMED,Shared bus
+cellular,ML307_UART_RX,GPIO37,ML307_TX,,,DNP_on_wifi_variant,FIRMWARE_CONFIRMED,Does not provide enough signals for 4-bit SDIO
+cellular,ML307_UART_TX,GPIO38,ML307_RX,,,DNP_on_wifi_variant,FIRMWARE_CONFIRMED,May be reserved as debug or future modem option
+storage,SD_SLOT0_CLK,GPIO43,MicroSD,,,keep,FIRMWARE_CONFIRMED,ESP32-P4 Slot0 fixed mapping
+storage,SD_SLOT0_CMD,GPIO44,MicroSD,,,keep,FIRMWARE_CONFIRMED,ESP32-P4 Slot0 fixed mapping
+storage,SD_SLOT0_D0,GPIO39,MicroSD,,,keep,FIRMWARE_CONFIRMED,ESP32-P4 Slot0 fixed mapping
+storage,SD_SLOT0_D1,GPIO40,MicroSD,,,keep,FIRMWARE_CONFIRMED,ESP32-P4 Slot0 fixed mapping
+storage,SD_SLOT0_D2,GPIO41,MicroSD,,,keep,FIRMWARE_CONFIRMED,ESP32-P4 Slot0 fixed mapping
+storage,SD_SLOT0_D3,GPIO42,MicroSD,,,keep,FIRMWARE_CONFIRMED,ESP32-P4 Slot0 fixed mapping
+display,LCD_RESET,GPIO27,ST7701,,,keep,FIRMWARE_CONFIRMED,Power/reset timing requires schematic confirmation
+display,LCD_BACKLIGHT,GPIO26,Backlight driver,,,keep,FIRMWARE_CONFIRMED,Driver topology and PWM polarity TBD
+display,MIPI_DSI,Internal DSI 2-lane,ST7701,,,keep,FIRMWARE_CONFIRMED,480x480 panel
+wifi,SDIO_SLOT1_CLK,,,GPIO18,C6 GPIO19,add,OFFICIAL_REFERENCE,Short PCB trace; series option near driver
+wifi,SDIO_SLOT1_CMD,,,GPIO19,C6 GPIO18,add,OFFICIAL_REFERENCE,51k pull-up required
+wifi,SDIO_SLOT1_D0,,,GPIO14,C6 GPIO20,add,OFFICIAL_REFERENCE,51k pull-up required
+wifi,SDIO_SLOT1_D1,,,GPIO15,C6 GPIO21,add,OFFICIAL_REFERENCE,51k pull-up required
+wifi,SDIO_SLOT1_D2,,,GPIO16,C6 GPIO22,add,OFFICIAL_REFERENCE,51k pull-up required even in 1-bit bring-up
+wifi,SDIO_SLOT1_D3,,,GPIO17,C6 GPIO23,add,OFFICIAL_REFERENCE,51k pull-up required even in 1-bit bring-up
+wifi,C6_RESET_OUT,,,GPIO54,C6 EN,add,OFFICIAL_REFERENCE,Also expose manual reset/test point
+wifi,C6_UART_TX,,,TBD,C6 U0RXD,add,PROPOSED,Initial flashing and rescue header; host GPIO allocation TBD
+wifi,C6_UART_RX,,,TBD,C6 U0TXD,add,PROPOSED,Initial flashing and rescue header; host GPIO allocation TBD
+wifi,C6_BOOT,,,TBD,C6 GPIO9,add,PROPOSED,Test fixture signal or local button/test point
+expansion,I2C_EXPANSION,GPIO7/8,Shared bus,,,reserve,PROPOSED,For low-rate sensors only; verify addresses and capacitance
+expansion,SENSOR_INT,TBD,Future sensor,,,reserve,TBD_PHYSICAL,Allocate after full schematic pin audit
+expansion,POWER_DOMAIN_EN,TBD,Future camera/radar/model domain,,,reserve,TBD_PHYSICAL,Do not share audio critical enable without analysis
+

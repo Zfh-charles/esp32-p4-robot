@@ -1,0 +1,232 @@
+{
+  "schema_version": 1,
+  "manifest_version": "p4-validation-fast-v7",
+  "checks": [
+    {
+      "id": "trace_contract",
+      "label": "Event/Effect/Trace contract tests",
+      "tier": "T0",
+      "scopes": ["fast"],
+      "timeout_seconds": 30,
+      "required": true,
+      "optional_when_missing": true,
+      "when_path": "tools/validation/contracts",
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/validation/contracts",
+        "-p",
+        "test_*.py"
+      ]
+    },
+    {
+      "id": "session_adjudicator_host",
+      "label": "Session and marker-soak continuity adjudicator tests",
+      "tier": "T0",
+      "scopes": ["fast"],
+      "timeout_seconds": 30,
+      "required": true,
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "../tools/stability",
+        "-p",
+        "test_adjudicate_*.py"
+      ]
+    },
+    {
+      "id": "face_state_reducer_host",
+      "label": "Domain reducer and visual commit host tests",
+      "tier": "T1",
+      "scopes": ["fast"],
+      "timeout_seconds": 90,
+      "required": true,
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/host_tests/run_face_state_reducer_test.ps1"
+      ]
+    },
+    {
+      "id": "mjpeg_index_reader_host",
+      "label": "Production MJPEG IndexReader host tests",
+      "tier": "T1",
+      "scopes": ["fast"],
+      "timeout_seconds": 240,
+      "required": true,
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/host_tests/run_mjpeg_index_reader_test.ps1"
+      ]
+    },
+    {
+      "id": "mjpeg_frame_source_host",
+      "label": "Production MJPEG FrameSource differential host tests",
+      "tier": "T1",
+      "scopes": ["fast"],
+      "timeout_seconds": 90,
+      "required": true,
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/host_tests/run_mjpeg_frame_source_test.ps1"
+      ]
+    },
+    {
+      "id": "mjpeg_decoder_stage_host",
+      "label": "Production MJPEG Decoder resource and ownership-sync tests",
+      "tier": "T1",
+      "scopes": ["fast"],
+      "timeout_seconds": 90,
+      "required": true,
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/host_tests/run_mjpeg_decoder_candidate_test.ps1"
+      ]
+    },
+    {
+      "id": "mjpeg_playback_clock_production_host",
+      "label": "Production MJPEG PlaybackClock contract tests",
+      "tier": "T1",
+      "scopes": ["fast"],
+      "timeout_seconds": 90,
+      "required": true,
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/host_tests/run_mjpeg_playback_clock_candidate_test.ps1"
+      ]
+    },
+    {
+      "id": "mjpeg_present_sink_production_host",
+      "label": "Production MJPEG PresentSink callback/WDT contract tests",
+      "tier": "T1",
+      "scopes": ["fast"],
+      "timeout_seconds": 90,
+      "required": true,
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/host_tests/run_mjpeg_present_sink_candidate_test.ps1"
+      ]
+    },
+    {
+      "id": "t2_replay_unit",
+      "label": "FakeClock, MJPEG pipeline, FakeExecutor, replay and mutation tests",
+      "tier": "T2",
+      "scopes": ["fast"],
+      "timeout_seconds": 45,
+      "required": true,
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "tools.validation.replay.core.test_core",
+        "tools.validation.replay.core.test_playback_clock_model",
+        "tools.validation.replay.core.test_mjpeg_frame_source_model",
+        "tools.validation.replay.core.test_mjpeg_decode_pipeline_model",
+        "tools.validation.replay.core.test_visual_commit_model",
+        "tools.validation.replay.core.test_full_frame_emotion_guard_model",
+        "tools.validation.replay.test_speech_core_bank_budget",
+        "tools.validation.replay.test_scenarios"
+      ]
+    },
+    {
+      "id": "t2_six_scenario_replay",
+      "label": "Six deterministic session scenarios with fault injection",
+      "tier": "T2",
+      "scopes": ["fast"],
+      "timeout_seconds": 30,
+      "required": true,
+      "command": [
+        "{python}",
+        "tools/validation/replay/run_scenarios.py",
+        "--quiet"
+      ]
+    },
+    {
+      "id": "emotion_intent_policy_host",
+      "label": "Emotion intent policy host tests",
+      "tier": "T1",
+      "scopes": ["fast"],
+      "timeout_seconds": 90,
+      "required": true,
+      "command": [
+        "powershell",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "tools/host_tests/run_emotion_intent_policy_test.ps1"
+      ]
+    },
+    {
+      "id": "architecture_guard",
+      "label": "First-party architecture ratchet",
+      "tier": "T0",
+      "scopes": ["fast"],
+      "timeout_seconds": 180,
+      "required": true,
+      "command": [
+        "{python}",
+        "tools/code_health/architecture_guard.py"
+      ]
+    },
+    {
+      "id": "mjpeg_strangler_guard",
+      "label": "MJPEG legacy semantics and G5 migration ratchet",
+      "tier": "T0",
+      "scopes": ["fast"],
+      "timeout_seconds": 30,
+      "required": true,
+      "command": [
+        "{python}",
+        "tools/code_health/mjpeg_strangler_guard.py"
+      ]
+    },
+    {
+      "id": "code_health_unit",
+      "label": "Code-health gate unit tests",
+      "tier": "T0",
+      "scopes": ["fast"],
+      "timeout_seconds": 60,
+      "required": true,
+      "command": [
+        "{python}",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/code_health",
+        "-p",
+        "test_*.py"
+      ]
+    }
+  ]
+}

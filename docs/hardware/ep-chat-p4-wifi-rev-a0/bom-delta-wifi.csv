@@ -1,0 +1,17 @@
+action,reference_or_group,description,quantity,initial_choice,status,design_note
+DNP,CELLULAR_MODULE,ML307 module and socket/connector,1,TBD,TBD_PHYSICAL,Exact references require current schematic/BOM
+DNP,CELLULAR_RF,Cellular antenna and matching path,1,TBD,TBD_PHYSICAL,Retain footprint only if a deliberate cellular variant is required
+DNP,SIM_PATH,SIM holder and protection network,1,TBD,TBD_PHYSICAL,Wi-Fi-only variant
+ADD,U_WIFI,ESP32-C6 module,1,ESP32-C6-MINI-1-N4 or MINI-1U-N4,PROPOSED,Choose 1U when enclosure cannot satisfy onboard antenna keepout
+ADD,U_3V3_WIFI,Dedicated or verified shared 3.3V regulator,1,Rated 0.6-0.8A with transient margin,PROPOSED,Exact topology depends on battery/input rail and thermal analysis
+ADD,C_WIFI_BULK,Low-ESR bulk capacitor at module rail,1,10uF minimum per official guidance,OFFICIAL_REFERENCE,Add local high-frequency decoupling per latest reference design
+ADD,R_SDIO_PULL,SDIO CMD and DAT0-DAT3 pull-ups,5,51k 1%,OFFICIAL_REFERENCE,Mandatory including DAT2/DAT3 during 1-bit bring-up
+ADD,R_SDIO_SERIES,SDIO CLK/CMD/D0-D3 series option,6,0R fitted with 22R/33R tuning options,PROPOSED,Placement and final values require SI validation
+ADD,R_C6_EN,C6 EN pull-up,1,TBD from latest official reference,PROPOSED,Do not freeze value without reviewing module reference schematic
+ADD,C_C6_EN,C6 EN reset capacitor,1,TBD from latest official reference,PROPOSED,Coordinate host reset and programming fixture
+ADD,J_C6_PROG,C6 programming/rescue test interface,1,"3V3 sense/GND/TX/RX/EN/BOOT",PROPOSED,Can be pogo pads instead of a fitted connector
+ADD,TP_SDIO,SDIO and reset test points,7,"CLK/CMD/D0-D3/EN",PROPOSED,Keep stubs short; use accessible high-impedance probe points
+ADD,RF_OPTION,External antenna connector and certified antenna,1,Only for MINI-1U option,PROPOSED,Respect regional certification and enclosure integration
+ADD,NET_TIE_OR_0R,Network variant selection/isolation links,TBD,TBD,PROPOSED,Prevent unpowered modem or C6 from back-powering through IO
+REVIEW,P4_DEVICE,ESP32-P4 silicon revision,1,Latest qualified production revision,PROPOSED,Recheck revision-specific schematic and errata; do not copy v1.0 design blindly
+

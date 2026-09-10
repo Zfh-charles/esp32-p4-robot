@@ -1,0 +1,16 @@
+{
+  "schema_version": "p4.trace.v1",
+  "trace_id": "invalid-non-monotonic",
+  "source": {"fw_marker": "boot_trace_v10_fixture", "environment": "host"},
+  "sanitized": true,
+  "events": [
+    {"seq": 1, "t_ms": 100, "type": "Wake.Detected"},
+    {"seq": 1, "t_ms": 90, "type": "Session.Listening"}
+  ],
+  "expected": {
+    "effects": [{"seq": 0, "type": "Session.Begin", "caused_by_event_seq": 1}],
+    "m_plus": [{"id": "begin", "target": "effect", "type": "Session.Begin", "min_count": 1}],
+    "m_minus": [{"id": "no_abort", "target": "effect", "type": "Audio.Abort", "max_count": 0}],
+    "invariants": [{"id": "one_begin", "kind": "count", "target": "effect", "type": "Session.Begin", "min_count": 1, "max_count": 1}]
+  }
+}

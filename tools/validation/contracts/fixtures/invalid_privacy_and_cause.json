@@ -1,0 +1,13 @@
+{
+  "schema_version": "p4.trace.v1",
+  "trace_id": "invalid-privacy-and-cause",
+  "source": {"fw_marker": "s1gc", "environment": "device"},
+  "sanitized": false,
+  "events": [{"seq": 0, "t_ms": 0, "type": "Tts.Started"}],
+  "expected": {
+    "effects": [{"seq": 0, "type": "Audio.PlayTts", "caused_by_event_seq": 99}],
+    "m_plus": [{"id": "missing_close", "target": "effect", "type": "Visual.CloseMouth", "min_count": 1}],
+    "m_minus": [{"id": "playback_forbidden", "target": "effect", "type": "Audio.PlayTts", "max_count": 0}],
+    "invariants": [{"id": "wrong_cause", "kind": "cause_type", "effect_type": "Audio.PlayTts", "event_type": "Tts.Ended"}]
+  }
+}

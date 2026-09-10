@@ -1,0 +1,26 @@
+idf_component_register(
+    SRCS
+        "src/ui/ui.c"
+        "src/ui/screens.c"
+        "src/ui/images.c"
+        "src/ui/styles.c"
+        "src/ui/ui_font_ys23.c"
+        "src/ui/ui_font_hm23.c"
+        "src/ui/ui_image_main.c"
+        "src/ui/ui_image_bat_20.c"
+        "src/ui/ui_image_bat_40.c"
+        "src/ui/ui_image_bat_60.c"
+        "src/ui/ui_image_bat_80.c"
+        "src/ui/ui_image_bat_100.c"
+        "src/ui/ui_image_error.c"
+        "src/ui/ui_image_wifi1.c"
+        "src/ui/ui_image_wifi2.c"
+        "src/ui/ui_image_wifi3.c"
+        "src/ui/ui_image_wifi4.c"
+    INCLUDE_DIRS
+        "src"
+        "src/ui"
+    REQUIRES
+        "lvgl__lvgl"
+        "espressif__esp_lvgl_port"
+)

@@ -1,0 +1,10 @@
+{
+  "schema": "resource-claim-v1", "version": 1,
+  "name": "perception.camera.snapshot", "producer": "camera_service", "class": "perception",
+  "timing": {"deadline_ms": 1000, "wcet_us": 80000, "period_ms": null},
+  "memory": {"internal_sram_bytes": 8192, "psram_bytes": 307200},
+  "burst": {"psram_read_bytes": 0, "psram_write_bytes": 307200},
+  "dma_domains": ["camera_dma", "mspi_psram"],
+  "power": {"average_mw": null, "peak_mw": null},
+  "policy": {"droppable": true, "queue": "drop_old", "expiry_ms": 1000, "degradation_chain": ["lower_resolution", "single_snapshot", "disable"]}
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "p4.trace.v1",
+  "trace_id": "t2.second_wake.drop_first_retry",
+  "source": {"fw_marker": "boot_trace_host_t2_contract", "environment": "replay"},
+  "sanitized": true,
+  "events": [
+    {"seq": 1, "t_ms": 0, "type": "Boot.Ready"},
+    {"seq": 2, "t_ms": 50, "type": "Wake.Detected"},
+    {"seq": 3, "t_ms": 100, "type": "Session.ExitRequested"},
+    {"seq": 4, "t_ms": 175, "type": "Fault.Inject", "payload": {"action": "drop_next", "target_type": "Wake.Detected"}},
+    {"seq": 5, "t_ms": 200, "type": "Wake.Detected"},
+    {"seq": 6, "t_ms": 350, "type": "Wake.Detected"}
+  ],
+  "expected": {
+    "effects": [
+      {"seq": 1, "type": "UI.ShowStandby", "caused_by_event_seq": 1},
+      {"seq": 2, "type": "Wake.Enable", "caused_by_event_seq": 1},
+      {"seq": 3, "type": "Wake.Disable", "caused_by_event_seq": 2},
+      {"seq": 4, "type": "Session.Begin", "caused_by_event_seq": 2},
+      {"seq": 5, "type": "Audio.OpenUplink", "caused_by_event_seq": 2},
+      {"seq": 6, "type": "UI.ShowListening", "caused_by_event_seq": 2},
+      {"seq": 7, "type": "Session.CloseRequest", "caused_by_event_seq": 3},
+      {"seq": 8, "type": "Session.Closed", "caused_by_event_seq": 3},
+      {"seq": 9, "type": "Wake.Enable", "caused_by_event_seq": 3},
+      {"seq": 10, "type": "UI.ShowStandby", "caused_by_event_seq": 3},
+      {"seq": 11, "type": "Wake.Disable", "caused_by_event_seq": 6},
+      {"seq": 12, "type": "Session.Begin", "caused_by_event_seq": 6},
+      {"seq": 13, "type": "Audio.OpenUplink", "caused_by_event_seq": 6},
+      {"seq": 14, "type": "UI.ShowListening", "caused_by_event_seq": 6}
+    ],
+    "m_plus": [
+      {"id": "two_sessions_begin", "target": "effect", "type": "Session.Begin", "min_count": 2},
+      {"id": "wake_rearmed_between_rounds", "target": "effect", "type": "Wake.Enable", "min_count": 2}
+    ],
+    "m_minus": [
+      {"id": "dropped_wake_has_no_begin_effect", "target": "effect", "type": "Session.BeginDropped", "max_count": 0}
+    ],
+    "invariants": [
+      {"id": "exactly_two_sessions", "kind": "count", "target": "effect", "type": "Session.Begin", "min_count": 2, "max_count": 2},
+      {"id": "session_begin_always_caused_by_wake", "kind": "cause_type", "effect_type": "Session.Begin", "event_type": "Wake.Detected"},
+      {"id": "exactly_two_wake_arms", "kind": "count", "target": "effect", "type": "Wake.Enable", "min_count": 2, "max_count": 2}
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": "p4.trace.v1",
+  "trace_id": "t2.cold_boot_first_round.delay_wake",
+  "source": {
+    "fw_marker": "boot_trace_host_t2_contract",
+    "environment": "replay"
+  },
+  "sanitized": true,
+  "events": [
+    {"seq": 1, "t_ms": 0, "type": "Boot.Ready"},
+    {"seq": 2, "t_ms": 50, "type": "Fault.Inject", "payload": {"action": "delay_next", "target_type": "Wake.Detected", "delay_ms": 120}},
+    {"seq": 3, "t_ms": 100, "type": "Wake.Detected"},
+    {"seq": 4, "t_ms": 300, "type": "TTS.Start"},
+    {"seq": 5, "t_ms": 400, "type": "TTS.Chunk", "payload": {"chunk_index": 0}},
+    {"seq": 6, "t_ms": 800, "type": "TTS.End"}
+  ],
+  "expected": {
+    "effects": [
+      {"seq": 1, "type": "UI.ShowStandby", "caused_by_event_seq": 1},
+      {"seq": 2, "type": "Wake.Enable", "caused_by_event_seq": 1},
+      {"seq": 3, "type": "Wake.Disable", "caused_by_event_seq": 3},
+      {"seq": 4, "type": "Session.Begin", "caused_by_event_seq": 3},
+      {"seq": 5, "type": "Audio.OpenUplink", "caused_by_event_seq": 3},
+      {"seq": 6, "type": "UI.ShowListening", "caused_by_event_seq": 3},
+      {"seq": 7, "type": "Audio.StartPlayback", "caused_by_event_seq": 4, "payload": {"generation": 1}},
+      {"seq": 8, "type": "Visual.SpeechBegin", "caused_by_event_seq": 4, "payload": {"generation": 1}},
+      {"seq": 9, "type": "Audio.QueueChunk", "caused_by_event_seq": 5, "payload": {"chunk_index": 0, "generation": 1}},
+      {"seq": 10, "type": "Audio.StopPlayback", "caused_by_event_seq": 6, "payload": {"generation": 1}},
+      {"seq": 11, "type": "Visual.SpeechEnd", "caused_by_event_seq": 6, "payload": {"generation": 1}},
+      {"seq": 12, "type": "UI.ShowListening", "caused_by_event_seq": 6}
+    ],
+    "m_plus": [
+      {"id": "first_session_begins", "target": "effect", "type": "Session.Begin", "min_count": 1},
+      {"id": "first_tts_chunk_queued", "target": "effect", "type": "Audio.QueueChunk", "min_count": 1}
+    ],
+    "m_minus": [
+      {"id": "boot_must_not_close_session", "target": "effect", "type": "Session.CloseRequest", "max_count": 0}
+    ],
+    "invariants": [
+      {"id": "standby_precedes_first_session", "kind": "effect_order", "before_type": "UI.ShowStandby", "after_type": "Session.Begin"},
+      {"id": "session_begin_caused_by_wake", "kind": "cause_type", "effect_type": "Session.Begin", "event_type": "Wake.Detected"}
+    ]
+  }
+}

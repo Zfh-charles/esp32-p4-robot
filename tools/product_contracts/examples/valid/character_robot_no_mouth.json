@@ -1,0 +1,71 @@
+{
+  "schema": "character-pack-v3",
+  "version": 3,
+  "pack": {
+    "id": "robot-orb-demo-v1",
+    "generation_id": "gen-robot-001",
+    "source_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "character": {
+    "id": "robot-orb-demo",
+    "display_name": "无嘴球形机器人",
+    "archetype": "robot",
+    "canvas": {"width": 320, "height": 320, "pixel_format": "rgb565-le"}
+  },
+  "canonical_emotions": {
+    "standby": {
+      "state": "supported",
+      "backend": "composite_sprite",
+      "canonical_base": {"asset": "standby/base.rgb565", "sha256": "0000000000000000000000000000000000000000000000000000000000000000"},
+      "features": {"mouth": false, "eyes": false, "body_life": true, "transition": false},
+      "layers": [{"name": "body_life", "composition": "precomposed_opaque", "assets": [{"path": "standby/glow_01.rgb565", "sha256": "0101010101010101010101010101010101010101010101010101010101010101", "pose_id": "glow_01"}]}],
+      "resource_claims": ["visual.standby.life.low"],
+      "review": {"status": "approved", "notes": "以机身光环表达生命感，不伪造嘴部"}
+    },
+    "happy": {
+      "state": "degraded",
+      "backend": "static_seed",
+      "canonical_base": {"asset": "happy/base.rgb565", "sha256": "1111111111111111111111111111111111111111111111111111111111111111"},
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "layers": [],
+      "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "颜色与姿态静态表达"}
+    },
+    "sad": {
+      "state": "degraded",
+      "backend": "static_seed",
+      "canonical_base": {"asset": "sad/base.rgb565", "sha256": "2222222222222222222222222222222222222222222222222222222222222222"},
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "layers": [],
+      "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "颜色与姿态静态表达"}
+    },
+    "angry": {
+      "state": "degraded",
+      "backend": "static_seed",
+      "canonical_base": {"asset": "angry/base.rgb565", "sha256": "3333333333333333333333333333333333333333333333333333333333333333"},
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "layers": [],
+      "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "颜色与姿态静态表达"}
+    },
+    "loving": {
+      "state": "degraded",
+      "backend": "static_seed",
+      "canonical_base": {"asset": "loving/base.rgb565", "sha256": "4444444444444444444444444444444444444444444444444444444444444444"},
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "layers": [],
+      "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "pending", "notes": "等待IP设计确认"}
+    },
+    "neutral": {
+      "state": "supported",
+      "backend": "static_seed",
+      "canonical_base": {"asset": "neutral/base.rgb565", "sha256": "5555555555555555555555555555555555555555555555555555555555555555"},
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "layers": [],
+      "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "无嘴角色合法通过"}
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": "p4.trace.v1",
+  "trace_id": "t2.long_tts.duplicate_chunk",
+  "source": {
+    "fw_marker": "boot_trace_host_t2_contract",
+    "environment": "replay"
+  },
+  "sanitized": true,
+  "events": [
+    {"seq": 1, "t_ms": 0, "type": "Boot.Ready"},
+    {"seq": 2, "t_ms": 100, "type": "Wake.Detected"},
+    {"seq": 3, "t_ms": 300, "type": "TTS.Start"},
+    {"seq": 4, "t_ms": 400, "type": "Fault.Inject", "payload": {"action": "duplicate_next", "target_type": "TTS.Chunk"}},
+    {"seq": 5, "t_ms": 500, "type": "TTS.Chunk", "payload": {"chunk_index": 0}},
+    {"seq": 6, "t_ms": 1800, "type": "TTS.Chunk", "payload": {"chunk_index": 1}},
+    {"seq": 7, "t_ms": 3200, "type": "TTS.Chunk", "payload": {"chunk_index": 2}},
+    {"seq": 8, "t_ms": 4500, "type": "TTS.End"}
+  ],
+  "expected": {
+    "effects": [
+      {"seq": 1, "type": "UI.ShowStandby", "caused_by_event_seq": 1},
+      {"seq": 2, "type": "Wake.Enable", "caused_by_event_seq": 1},
+      {"seq": 3, "type": "Wake.Disable", "caused_by_event_seq": 2},
+      {"seq": 4, "type": "Session.Begin", "caused_by_event_seq": 2},
+      {"seq": 5, "type": "Audio.OpenUplink", "caused_by_event_seq": 2},
+      {"seq": 6, "type": "UI.ShowListening", "caused_by_event_seq": 2},
+      {"seq": 7, "type": "Audio.StartPlayback", "caused_by_event_seq": 3, "payload": {"generation": 1}},
+      {"seq": 8, "type": "Visual.SpeechBegin", "caused_by_event_seq": 3, "payload": {"generation": 1}},
+      {"seq": 9, "type": "Audio.QueueChunk", "caused_by_event_seq": 5, "payload": {"chunk_index": 0, "generation": 1}},
+      {"seq": 10, "type": "Audio.QueueChunk", "caused_by_event_seq": 6, "payload": {"chunk_index": 1, "generation": 1}},
+      {"seq": 11, "type": "Audio.QueueChunk", "caused_by_event_seq": 7, "payload": {"chunk_index": 2, "generation": 1}},
+      {"seq": 12, "type": "Audio.StopPlayback", "caused_by_event_seq": 8, "payload": {"generation": 1}},
+      {"seq": 13, "type": "Visual.SpeechEnd", "caused_by_event_seq": 8, "payload": {"generation": 1}},
+      {"seq": 14, "type": "UI.ShowListening", "caused_by_event_seq": 8}
+    ],
+    "m_plus": [
+      {"id": "long_tts_queues_unique_chunks", "target": "effect", "type": "Audio.QueueChunk", "min_count": 3},
+      {"id": "long_tts_reaches_visual_end", "target": "effect", "type": "Visual.SpeechEnd", "min_count": 1}
+    ],
+    "m_minus": [
+      {"id": "long_tts_must_not_close_session", "target": "effect", "type": "Session.CloseRequest", "max_count": 0}
+    ],
+    "invariants": [
+      {"id": "playback_starts_before_stops", "kind": "effect_order", "before_type": "Audio.StartPlayback", "after_type": "Audio.StopPlayback"},
+      {"id": "duplicate_chunk_is_suppressed", "kind": "count", "target": "effect", "type": "Audio.QueueChunk", "min_count": 3, "max_count": 3},
+      {"id": "chunks_keep_tts_cause", "kind": "cause_type", "effect_type": "Audio.QueueChunk", "event_type": "TTS.Chunk"}
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xiaozhi.local/schemas/character-profile-v1.schema.json",
+  "title": "Character Compiler Profile v1",
+  "type": "object",
+  "required": ["schema", "version", "pack_id", "character", "canonical_emotions"],
+  "properties": {
+    "schema": {"const": "character-profile-v1"},
+    "version": {"const": 1},
+    "pack_id": {"type": "string", "minLength": 1},
+    "character": {"type": "object"},
+    "canonical_emotions": {
+      "type": "object",
+      "required": ["standby", "happy", "sad", "angry", "loving", "neutral"],
+      "properties": {
+        "standby": {"$ref": "#/$defs/emotion"}, "happy": {"$ref": "#/$defs/emotion"},
+        "sad": {"$ref": "#/$defs/emotion"}, "angry": {"$ref": "#/$defs/emotion"},
+        "loving": {"$ref": "#/$defs/emotion"}, "neutral": {"$ref": "#/$defs/emotion"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "emotion": {
+      "type": "object",
+      "required": ["source_emotion", "state", "features", "approved_layers", "review"],
+      "properties": {
+        "source_emotion": {"type": "string", "minLength": 1},
+        "state": {"enum": ["supported", "degraded", "rejected"]},
+        "backend": {"enum": ["full_frame_safe", "composite_sprite", "band_delta", "static_seed"]},
+        "features": {
+          "type": "object",
+          "required": ["mouth", "eyes", "body_life", "transition"],
+          "properties": {
+            "mouth": {"type": "boolean"}, "eyes": {"type": "boolean"},
+            "body_life": {"type": "boolean"}, "transition": {"type": "boolean"}
+          },
+          "additionalProperties": false
+        },
+        "approved_layers": {
+          "type": "array", "uniqueItems": true,
+          "items": {"enum": ["mouth_face", "eyes_brows", "body_life", "enter", "exit"]}
+        },
+        "approved_life_tracks": {"type": "array", "uniqueItems": true, "items": {"type": "integer", "minimum": 0}},
+        "resource_claims": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "review": {
+          "type": "object", "required": ["status", "notes"],
+          "properties": {"status": {"enum": ["approved", "pending", "rejected"]}, "notes": {"type": "string"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

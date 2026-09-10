@@ -1,0 +1,1 @@
+{"schema":"visual-intent-commit-v1","version":1,"kind":"visual_commit","emotion":"happy","phase":"speaking","generation":1,"deadline_ms":120,"backend":"composite_sprite","composition":"runtime_alpha","base_sha256":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","pose_id":"mouth_2","resource_claim":"visual.mouth","drop_policy":"drop_expired_no_replay"}

@@ -1,0 +1,103 @@
+#ifndef _BOARD_CONFIG_H_
+#define _BOARD_CONFIG_H_
+
+#include <driver/gpio.h>
+
+#define AUDIO_INPUT_SAMPLE_RATE  24000
+#define AUDIO_OUTPUT_SAMPLE_RATE 24000
+
+#define AUDIO_INPUT_REFERENCE    true
+
+#define AUDIO_I2S_GPIO_MCLK GPIO_NUM_13
+#define AUDIO_I2S_GPIO_WS GPIO_NUM_10
+#define AUDIO_I2S_GPIO_BCLK GPIO_NUM_12
+#define AUDIO_I2S_GPIO_DIN  GPIO_NUM_11
+#define AUDIO_I2S_GPIO_DOUT GPIO_NUM_9
+
+#define AUDIO_CODEC_PA_PIN       GPIO_NUM_1
+#define AUDIO_CODEC_I2C_SDA_PIN  GPIO_NUM_7
+#define AUDIO_CODEC_I2C_SCL_PIN  GPIO_NUM_8
+#define AUDIO_CODEC_ES8311_ADDR  ES8311_CODEC_DEFAULT_ADDR
+#define AUDIO_CODEC_ES7210_ADDR  ES7210_CODEC_DEFAULT_ADDR
+
+#define BOOT_BUTTON_GPIO        GPIO_NUM_NC
+
+
+#define Module_4G_RX_PIN        GPIO_NUM_37
+#define Module_4G_TX_PIN        GPIO_NUM_38
+#define ML307_DTR_PIN           GPIO_NUM_NC
+
+#define LCD_BIT_PER_PIXEL          (16)
+#define PIN_NUM_LCD_RST            GPIO_NUM_27
+
+#define SD_MOUNT_POINT "/sdcard"
+#define SD_SDMMC_CLK_PIN   43   // SDMMC_SCK
+#define SD_SDMMC_CMD_PIN   44   // SDMMC_CMD  
+#define SD_SDMMC_D0_PIN    39   // SDMMC_D0
+#define SD_SDMMC_D1_PIN    40   // SDMMC_D1
+#define SD_SDMMC_D2_PIN    41   // SDMMC_D2
+#define SD_SDMMC_D3_PIN    42   // SDMMC_D3
+
+#define DELAY_TIME_MS                      (3000)
+#define LCD_MIPI_DSI_LANE_NUM          (2)    // 2 data lanes
+
+#define MIPI_DSI_PHY_PWR_LDO_CHAN          (3)
+#define MIPI_DSI_PHY_PWR_LDO_VOLTAGE_MV    (2500)
+
+#define DISPLAY_SWAP_XY false
+#define DISPLAY_MIRROR_X false
+#define DISPLAY_MIRROR_Y false
+
+#define DISPLAY_OFFSET_X  0
+#define DISPLAY_OFFSET_Y  0
+
+#define DISPLAY_BACKLIGHT_PIN  GPIO_NUM_26
+#define DISPLAY_BACKLIGHT_OUTPUT_INVERT false
+
+#define DISPLAY_WIDTH 480
+#define DISPLAY_HEIGHT 480
+
+static const st7701_lcd_init_cmd_t lcd_init_cmds[] = {
+    // 软件重置，确保屏幕处于已知状态
+    {0x01, (uint8_t[]){0x00}, 0, 10},  // 软件重置命令，延迟10ms
+    {0xFF, (uint8_t[]){0x77, 0x01, 0x00, 0x00, 0x13}, 5, 0},
+    {0xEF, (uint8_t[]){0x08}, 1, 0},
+    {0xFF, (uint8_t[]){0x77, 0x01, 0x00, 0x00, 0x10}, 5, 0},
+    {0xC0, (uint8_t[]){0x3B, 0x00}, 2, 0},
+    {0xC1, (uint8_t[]){0x0C, 0x02}, 2, 0},
+    {0xC2, (uint8_t[]){0x30, 0x06}, 2, 0},
+    {0xCC, (uint8_t[]){0x10}, 1, 0},
+    {0xB0, (uint8_t[]){0x00, 0x0E, 0x56, 0x0D, 0x10, 0x05, 0x05, 0x07, 0x07, 0x22, 0x04, 0x13, 0x12, 0x6B, 0x73, 0xFF}, 16, 0},
+    {0xB1, (uint8_t[]){0x00, 0x0E, 0x56, 0x0D, 0x10, 0x05, 0x05, 0x07, 0x07, 0x22, 0x04, 0x13, 0x12, 0x6B, 0x73, 0xFF}, 16, 0},
+    {0xFF, (uint8_t[]){0x77, 0x01, 0x00, 0x00, 0x11}, 5, 0},
+    {0xB0, (uint8_t[]){0x75}, 1, 0},
+    {0xB1, (uint8_t[]){0x41}, 1, 0},
+    {0xB2, (uint8_t[]){0x89}, 1, 0},
+    {0xB3, (uint8_t[]){0x80}, 1, 0},
+    {0xB5, (uint8_t[]){0x49}, 1, 0},
+    {0xB7, (uint8_t[]){0x85}, 1, 0},
+    {0xB8, (uint8_t[]){0x32}, 1, 0},
+    {0xC1, (uint8_t[]){0x78}, 1, 0},
+    {0xC2, (uint8_t[]){0x78}, 1, 0},
+    {0xD0, (uint8_t[]){0x88}, 1, 0},
+    {0xE0, (uint8_t[]){0x00, 0x00, 0x02}, 3, 100}, // Delay 100ms
+    {0xE1, (uint8_t[]){0x05, 0xC0, 0x07, 0xC0, 0x04, 0xC0, 0x06, 0xC0, 0x00, 0x44, 0x44}, 11, 0},
+    {0xE2, (uint8_t[]){0x10, 0x10, 0x33, 0x33, 0xEC, 0xC0, 0x00, 0x00, 0xEC, 0xC0, 0x00, 0x00, 0x00}, 13, 0},
+    {0xE3, (uint8_t[]){0x00, 0x00, 0x11, 0x11}, 4, 0},
+    {0xE4, (uint8_t[]){0x44, 0x44}, 2, 0},
+    {0xE5, (uint8_t[]){0x09, 0xF1, 0x10, 0xFA, 0x0B, 0xF3, 0x10, 0xFA, 0x05, 0xED, 0x10, 0xFA, 0x07, 0xEF, 0x10, 0xFA}, 16, 0},
+    {0xE6, (uint8_t[]){0x00, 0x00, 0x11, 0x11}, 4, 0},
+    {0xE7, (uint8_t[]){0x44, 0x44}, 2, 0},
+    {0xE8, (uint8_t[]){0x08, 0xF0, 0x10, 0xFA, 0x0A, 0xF2, 0x10, 0xFA, 0x04, 0xEC, 0x10, 0xFA, 0x06, 0xEE, 0x10, 0xFA}, 16, 0},
+    {0xEB, (uint8_t[]){0x02, 0x01, 0xE4, 0xE4, 0x44, 0x88, 0x00}, 7, 0},
+    {0xED, (uint8_t[]){0xFF, 0x04, 0x56, 0x7F, 0xBA, 0x2F, 0xFF, 0xFF, 0xFF, 0xFF, 0xF2, 0xAB, 0xF7, 0x65, 0x40, 0xFF}, 16, 0},
+    {0xEF, (uint8_t[]){0x10, 0x0D, 0x04, 0x08, 0x3F, 0x1F}, 6, 0},
+    {0xFF, (uint8_t[]){0x77, 0x01, 0x00, 0x00, 0x00}, 5, 0},
+    {0x11, (uint8_t[]){0x00}, 0, 120}, // 退出睡眠模式，延迟120ms
+    {0x29, (uint8_t[]){0x00}, 0, 0},  // 显示开启
+    {0x35, (uint8_t[]){0x00}, 1, 0},  // 开启TE信号
+    {0x36, (uint8_t[]){0x00}, 1, 0},  // 扫描方向设置
+    {0x3A, (uint8_t[]){0x55}, 1, 0},  // RGB565格式
+};
+
+#endif // _BOARD_CONFIG_H_

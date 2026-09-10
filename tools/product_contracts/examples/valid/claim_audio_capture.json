@@ -1,0 +1,10 @@
+{
+  "schema": "resource-claim-v1", "version": 1,
+  "name": "audio.capture.realtime", "producer": "audio_frontend", "class": "realtime_audio",
+  "timing": {"deadline_ms": 20, "wcet_us": 4000, "period_ms": 20},
+  "memory": {"internal_sram_bytes": 32768, "psram_bytes": 0},
+  "burst": {"psram_read_bytes": 0, "psram_write_bytes": 0},
+  "dma_domains": ["audio_dma"],
+  "power": {"average_mw": null, "peak_mw": null},
+  "policy": {"droppable": false, "queue": "run_to_completion", "expiry_ms": null, "degradation_chain": ["preserve_capture", "shed_visual", "shed_inference"]}
+}

@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "backend-alert": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["backend_alert.py"],
+      "disabled": false
+    },
+    "local-stdio-calculator": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "calculator"],
+      "disabled": true
+    },
+    "remote-sse-server": {
+      "type": "sse",
+      "url": "https://api.example.com/sse",
+      "disabled": true
+    },
+    "remote-http-server": {
+      "type": "http",
+      "url": "https://api.example.com/mcp",
+      "disabled": true
+    }
+  }
+}

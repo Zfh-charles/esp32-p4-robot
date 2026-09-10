@@ -1,0 +1,18 @@
+rail,load,mode,voltage_v,current_ma,source_or_confidence,acceptance_or_action
+3V3_C6,ESP32-C6-MINI-1,802.11b TX maximum power,3.3,382,OFFICIAL_DATASHEET,Supply must remain within 3.0-3.6V at the module pins
+3V3_C6,ESP32-C6-MINI-1,802.11g TX maximum power,3.3,316,OFFICIAL_DATASHEET,Include RF burst and regulator transient response
+3V3_C6,ESP32-C6-MINI-1,802.11n HT20 TX maximum power,3.3,295,OFFICIAL_DATASHEET,Use worst applicable TX mode for design
+3V3_C6,ESP32-C6-MINI-1,802.11ax HE20 TX maximum power,3.3,251,OFFICIAL_DATASHEET,Do not substitute this for 802.11b worst case
+3V3_C6,ESP32-C6-MINI-1,Wi-Fi RX,3.3,82,OFFICIAL_DATASHEET,Typical upper value across listed RX modes
+3V3_C6,C6 supply design capability,transient design target,3.3,600-800,PROPOSED,Minimum official external capability is 500mA; final rating requires rail measurements and derating
+P4_CORE,ESP32-P4 basic system,basic supply sizing,TBD,380,OFFICIAL_GUIDELINE_MINIMUM,Peripheral and PSRAM/Flash demand must be added; not a complete board peak
+P4_MEMORY,Flash and PSRAM,display/audio/network concurrency,TBD,TBD,TBD_PHYSICAL,Measure transient at long TTS plus SD read plus display update
+DISPLAY,LCD logic plus MIPI PHY,active,TBD,TBD,TBD_PHYSICAL,Confirm panel datasheet and P4 LDO/PHY power topology
+BACKLIGHT,LED backlight,100 percent,TBD,TBD,TBD_PHYSICAL,Measure cold and hot current; include PWM peak not only average
+AUDIO_CODEC,ES8311 plus ES7210,capture plus playback,TBD,TBD,TBD_PHYSICAL,Confirm analog/digital rail separation and codec datasheets
+SPEAKER_PA,Power amplifier,long TTS at maximum accepted volume,TBD,TBD,TBD_PHYSICAL,Usually a major peak load; measure into production speaker impedance
+SD,MicroSD,read/write burst,TBD,TBD,TBD_PHYSICAL,Test worst approved card during Wi-Fi and display activity
+BATTERY_GAUGE,BQ27220,normal,TBD,TBD,FIRMWARE_CONFIRMED_DEVICE,Confirm actual sense resistor and battery chemistry configuration from schematic/BOM
+CELLULAR,ML307,TX burst,TBD,TBD,TBD_PHYSICAL,DNP for Wi-Fi-only variant; do not reuse its unknown rail without verification
+SYSTEM,Wi-Fi voice terminal,"Wi-Fi TX + long TTS + backlight + SD/display",TBD,TBD,MEASUREMENT_REQUIRED,Scope all rails and log brownout/reset/audio underrun; freeze regulator only after EVT data
+

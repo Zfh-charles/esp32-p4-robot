@@ -1,0 +1,20 @@
+{
+  "schema": "device-capability-v1",
+  "version": 1,
+  "board": {"id": "ep-chat-p4-ml307", "soc": "esp32-p4", "revision": "v1.0"},
+  "memory": {"internal_sram_bytes": 0, "psram_bytes": 33554432},
+  "resource_domains": [
+    {"name": "internal_sram", "kind": "memory", "notes": "0 means not contractually budgeted yet"},
+    {"name": "mspi_psram", "kind": "bus", "notes": "shared burst-limited domain"},
+    {"name": "display_dma", "kind": "dma"},
+    {"name": "sd_bus", "kind": "storage"},
+    {"name": "modem_uart", "kind": "network"},
+    {"name": "power_rail", "kind": "power"}
+  ],
+  "capabilities": [
+    {"name": "voice_frontend", "kind": "audio", "present": true, "driver": "esp-sr", "resource_domains": ["internal_sram", "mspi_psram"]},
+    {"name": "face_display", "kind": "display", "present": true, "driver": "lvgl", "resource_domains": ["mspi_psram", "display_dma"]},
+    {"name": "emotion_sd", "kind": "storage", "present": true, "driver": "sdmmc", "resource_domains": ["sd_bus", "mspi_psram"]},
+    {"name": "wide_area_network", "kind": "network", "present": true, "driver": "ml307", "resource_domains": ["modem_uart", "power_rail"]}
+  ]
+}

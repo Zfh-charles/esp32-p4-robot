@@ -1,0 +1,48 @@
+{
+  "schema": "character-profile-v1", "version": 1,
+  "pack_id": "xiaozhi-current-ip-v5p3",
+  "character": {
+    "id": "xiaozhi-current-ip", "display_name": "当前小智角色", "archetype": "human",
+    "canvas": {"width": 480, "height": 480, "pixel_format": "rgb565-le"}
+  },
+  "canonical_emotions": {
+    "standby": {
+      "source_emotion": "standby", "state": "supported",
+      "features": {"mouth": true, "eyes": true, "body_life": true, "transition": false},
+      "approved_layers": ["mouth_face", "body_life"], "approved_life_tracks": [1],
+      "resource_claims": ["visual.speaking.mouth", "visual.standby.life.low"],
+      "review": {"status": "approved", "notes": "只批准下半部life track1；眼层继续冻结"}
+    },
+    "happy": {
+      "source_emotion": "happy", "state": "supported",
+      "features": {"mouth": true, "eyes": true, "body_life": true, "transition": false},
+      "approved_layers": ["mouth_face", "body_life"], "approved_life_tracks": [1],
+      "resource_claims": ["visual.speaking.mouth", "visual.standby.life.low"],
+      "review": {"status": "approved", "notes": "保留已验嘴层和下方身体生命轨，拒绝头发轨"}
+    },
+    "sad": {
+      "source_emotion": "sad", "state": "degraded", "backend": "static_seed",
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "approved_layers": [], "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "强情绪静态优先，退场轨冻结"}
+    },
+    "angry": {
+      "source_emotion": "angry", "state": "degraded", "backend": "static_seed",
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "approved_layers": [], "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "强情绪静态优先，退场轨冻结"}
+    },
+    "loving": {
+      "source_emotion": "loving", "state": "supported",
+      "features": {"mouth": true, "eyes": true, "body_life": false, "transition": false},
+      "approved_layers": ["mouth_face"], "resource_claims": ["visual.speaking.mouth"],
+      "review": {"status": "pending", "notes": "P1接缝预览仍需人工确认"}
+    },
+    "neutral": {
+      "source_emotion": "neutral", "state": "supported",
+      "features": {"mouth": true, "eyes": true, "body_life": false, "transition": false},
+      "approved_layers": ["mouth_face"], "resource_claims": ["visual.speaking.mouth"],
+      "review": {"status": "pending", "notes": "P1接缝预览仍需人工确认"}
+    }
+  }
+}

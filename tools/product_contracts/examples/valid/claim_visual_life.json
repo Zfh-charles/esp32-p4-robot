@@ -1,0 +1,10 @@
+{
+  "schema": "resource-claim-v1", "version": 1,
+  "name": "visual.standby.life.low", "producer": "face_worker", "class": "visual",
+  "timing": {"deadline_ms": 250, "wcet_us": 12000, "period_ms": 5000},
+  "memory": {"internal_sram_bytes": 4096, "psram_bytes": 46080},
+  "burst": {"psram_read_bytes": 46080, "psram_write_bytes": 46080},
+  "dma_domains": ["display_dma", "mspi_psram"],
+  "power": {"average_mw": null, "peak_mw": null},
+  "policy": {"droppable": true, "queue": "latest_value", "expiry_ms": 250, "degradation_chain": ["lower_rate", "static_seed", "disable"]}
+}

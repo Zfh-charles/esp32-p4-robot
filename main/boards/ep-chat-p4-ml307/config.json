@@ -1,0 +1,13 @@
+{
+    "target": "esp32p4",
+    "builds": [
+        {
+            "name": "ep-chat-p4-ml307",
+            "sdkconfig_append": [
+                // "CONFIG_USE_WECHAT_MESSAGE_STYLE=n",
+                // "CONFIG_USE_DEVICE_AEC=y",
+                // "CONFIG_LCD_TYPE_800_800_3_4_INCH=y"
+            ]
+        }
+    ]
+}

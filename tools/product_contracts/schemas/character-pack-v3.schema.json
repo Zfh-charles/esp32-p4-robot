@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xiaozhi.local/schemas/character-pack-v3.schema.json",
+  "title": "Character Pack v3",
+  "type": "object",
+  "required": ["schema", "version", "pack", "character", "canonical_emotions"],
+  "properties": {
+    "schema": {"const": "character-pack-v3"},
+    "version": {"const": 3},
+    "pack": {
+      "type": "object",
+      "required": ["id", "generation_id", "source_sha256"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "generation_id": {"type": "string", "minLength": 1},
+        "source_sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    },
+    "character": {
+      "type": "object",
+      "required": ["id", "display_name", "archetype", "canvas"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "display_name": {"type": "string", "minLength": 1},
+        "archetype": {
+          "enum": ["human", "animal", "robot", "object", "abstract"]
+        },
+        "canvas": {
+          "type": "object",
+          "required": ["width", "height", "pixel_format"],
+          "properties": {
+            "width": {"type": "integer", "minimum": 1},
+            "height": {"type": "integer", "minimum": 1},
+            "pixel_format": {"enum": ["rgb565-le"]}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "canonical_emotions": {
+      "type": "object",
+      "required": ["standby", "happy", "sad", "angry", "loving", "neutral"],
+      "properties": {
+        "standby": {"$ref": "#/$defs/emotion"},
+        "happy": {"$ref": "#/$defs/emotion"},
+        "sad": {"$ref": "#/$defs/emotion"},
+        "angry": {"$ref": "#/$defs/emotion"},
+        "loving": {"$ref": "#/$defs/emotion"},
+        "neutral": {"$ref": "#/$defs/emotion"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "asset": {
+      "type": "object",
+      "required": ["path", "sha256", "pose_id"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "pose_id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "layer": {
+      "type": "object",
+      "required": ["name", "composition", "assets"],
+      "properties": {
+        "name": {
+          "enum": ["mouth_face", "eyes_brows", "body_life", "enter", "exit"]
+        },
+        "composition": {"const": "precomposed_opaque"},
+        "assets": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/asset"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "emotion": {
+      "type": "object",
+      "required": [
+        "state", "backend", "canonical_base", "features", "layers", "review"
+      ],
+      "properties": {
+        "state": {"enum": ["supported", "degraded", "rejected"]},
+        "backend": {
+          "enum": [
+            "full_frame_safe", "composite_sprite", "band_delta", "static_seed", null
+          ]
+        },
+        "canonical_base": {
+          "type": ["object", "null"],
+          "properties": {
+            "asset": {"type": "string", "minLength": 1},
+            "sha256": {"$ref": "#/$defs/sha256"}
+          },
+          "required": ["asset", "sha256"],
+          "additionalProperties": false
+        },
+        "features": {
+          "type": "object",
+          "required": ["mouth", "eyes", "body_life", "transition"],
+          "properties": {
+            "mouth": {"type": "boolean"},
+            "eyes": {"type": "boolean"},
+            "body_life": {"type": "boolean"},
+            "transition": {"type": "boolean"}
+          },
+          "additionalProperties": false
+        },
+        "layers": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/layer"}
+        },
+        "resource_claims": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "review": {
+          "type": "object",
+          "required": ["status", "notes"],
+          "properties": {
+            "status": {"enum": ["approved", "pending", "rejected"]},
+            "notes": {"type": "string"}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

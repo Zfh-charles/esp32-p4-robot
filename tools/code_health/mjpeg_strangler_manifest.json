@@ -1,0 +1,240 @@
+{
+  "schema_version": 3,
+  "legacy_source": "main/boards/ep-chat-p4-ml307/emotion_video_player.c",
+  "runtime_config": "main/boards/ep-chat-p4-ml307/mjpeg_runtime_selection.h",
+  "required_roles": [
+    "index_reader",
+    "frame_source",
+    "decoder",
+    "playback_clock",
+    "present_sink"
+  ],
+  "components": {
+    "index_reader": "main/boards/ep-chat-p4-ml307/mjpeg_index_reader.c",
+    "frame_source": "main/boards/ep-chat-p4-ml307/mjpeg_frame_source.c",
+    "decoder": "main/boards/ep-chat-p4-ml307/mjpeg_decoder_stage.c",
+    "playback_clock": "main/boards/ep-chat-p4-ml307/mjpeg_playback_clock.c",
+    "present_sink": "main/boards/ep-chat-p4-ml307/mjpeg_present_sink.c"
+  },
+  "runtime_selection": {
+    "index_reader": "production",
+    "frame_source": "production",
+    "decoder": "legacy",
+    "playback_clock": "legacy",
+    "present_sink": "production"
+  },
+  "production_contracts": {
+    "index_reader": {
+      "path": "main/boards/ep-chat-p4-ml307/mjpeg_index_reader.c",
+      "status": "pass",
+      "host_gate": "mjpeg_index_reader_host"
+    },
+    "frame_source": {
+      "path": "main/boards/ep-chat-p4-ml307/mjpeg_frame_source.c",
+      "status": "pass",
+      "host_gate": "mjpeg_frame_source_host"
+    },
+    "decoder": {
+      "path": "main/boards/ep-chat-p4-ml307/mjpeg_decoder_stage.c",
+      "status": "pass",
+      "host_gate": "mjpeg_decoder_stage_host"
+    },
+    "playback_clock": {
+      "path": "main/boards/ep-chat-p4-ml307/mjpeg_playback_clock.c",
+      "status": "pass",
+      "host_gate": "mjpeg_playback_clock_production_host"
+    },
+    "present_sink": {
+      "path": "main/boards/ep-chat-p4-ml307/mjpeg_present_sink.c",
+      "status": "pass",
+      "host_gate": "mjpeg_present_sink_production_host"
+    }
+  },
+  "legacy_exceptions": {
+    "decoder": {
+      "decision": "permanent_legacy",
+      "status": "approved",
+      "reason": "s1gh failed its isolated runtime gate and s1gi failed with Decoder still selected; the zero-tax direct candidate then exceeded the fail-closed P4 stack budget before runtime",
+      "j5_stop": true,
+      "failure_markers": [
+        "boot_trace_v10_s1gh_g4_decoder",
+        "boot_trace_v10_s1gi_g4_clock"
+      ],
+      "fallback_marker": "boot_trace_v10_s1fw_idle_visible_base",
+      "fallback_status": "pass"
+    },
+    "playback_clock": {
+      "decision": "permanent_legacy",
+      "status": "approved",
+      "reason": "two isolated production implementations passed short gates but failed natural runtime gates; Principle J5 stops further hot-path retries",
+      "j5_stop": true,
+      "failure_markers": [
+        "boot_trace_v10_s1gk_g4_clock_isolated",
+        "boot_trace_v10_s1gq_g5_clock_direct"
+      ],
+      "fallback_marker": "boot_trace_v10_s1fw_idle_visible_base",
+      "fallback_status": "pass"
+    }
+  },
+  "evidence": {
+    "baseline_session_v2": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1ge_g3_caption_extract",
+      "counts": {
+        "wakes": 2,
+        "cloud_sessions": 2,
+        "channel_closed": 4,
+        "max_sentence_starts_per_wake": 23,
+        "speech_generations": 8
+      }
+    },
+    "g4_runtime_v2": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gg_g4_frame_source",
+      "v1_status": "pass",
+      "human_experience": "pass",
+      "counts": {
+        "wakes": 2,
+        "cloud_sessions": 2,
+        "channel_closed": 4,
+        "max_sentence_starts_per_wake": 24,
+        "speech_generations": 9
+      }
+    },
+    "g4_soak_v3": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gg_g4_frame_source",
+      "adjudication": "user_one_time_override",
+      "machine_evidence": "about_3h_right_censored_zero_fatal_below_normal_6h_gate",
+      "non_precedent": true
+    },
+    "g4_decoder_runtime_v1": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gh_g4_decoder",
+      "exact_uptime_ms": 1199,
+      "delayed_uptime_ms": 61464,
+      "controlled_window_s": 100,
+      "wdt": 0,
+      "panic": 0,
+      "evidence_boundary": "usb_startup_only_not_session_v2_or_soak_v3"
+    },
+    "g4_clock_isolated_runtime_v1": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gk_g4_clock_isolated",
+      "capture": "tools/logs/boot_COM7_20260826_170528_s1gk.log",
+      "exact_uptime_ms": 1161,
+      "delayed_uptime_ms": 61426,
+      "controlled_window_s": 105,
+      "background_observed_ms": 564744,
+      "wdt": 0,
+      "panic": 0,
+      "access_fault": 0,
+      "evidence_boundary": "decoder_legacy_clock_production_isolated_v1_only"
+    },
+    "g4_clock_isolated_runtime_failure": {
+      "status": "fail",
+      "marker": "boot_trace_v10_s1gk_g4_clock_isolated",
+      "capture": "tools/logs/crash_COM7_20260826_1800_s1gk.log",
+      "prev_t_ms": 3445743,
+      "reset_reason": "WDT",
+      "prev_phase": "MJPEG_SKIP_SPEAK",
+      "panic": {
+        "mcause": 5,
+        "mepc": "0x4ff0df68",
+        "ra": "0x4ff0ddb4",
+        "sp": "0x4ff1de20",
+        "mtval": "0x0000000b"
+      },
+      "addr2line": "prvSelectHighestPriorityTaskSMP/vTaskSwitchContext",
+      "human_observation": "second_wake_no_audio_then_delayed_audio_then_reboot",
+      "causal_boundary": "isolated_clock_marker_failed_runtime_gate; evidence_does_not_prove_clock_directly_corrupted_scheduler_state"
+    },
+    "g4_present_sink_runtime_v2_v3": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gp_g4_present_sink",
+      "v1_capture": "tools/logs/boot_COM7_20260830_041035.log",
+      "v2_capture": "tools/logs/soak_COM7_20260830_s1gp_v2_1h.log",
+      "closeout_report": "tools/validation/gate/reports/s1gp_runtime_closeout.json",
+      "human_experience": "pass_all_real_device_scenarios",
+      "minimum_gate_ms": 3600000,
+      "observed_uptime_ms": 3671424,
+      "fatal_total": 0,
+      "evidence_boundary": "user_defined_one_hour_stage_gate_not_mtbf"
+    },
+    "g5_clock_direct_v0_v1_v2": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gq_g5_clock_direct",
+      "fast_report": "tools/validation/gate/reports/s1gq_v0_fast.json",
+      "stack_report": "tools/validation/gate/reports/g5_clock_direct_binding_candidate.json",
+      "v1_capture": "tools/logs/boot_COM7_20260830_081210.log",
+      "startup_soak": "tools/logs/soak_COM7_20260830_s1gq_startup_5m.log",
+      "v1_observed_uptime_ms": 322219,
+      "v2_status": "pass",
+      "human_experience": "pass_all_real_device_scenarios",
+      "fatal_total": 0,
+      "evidence_boundary": "V0_RELEASE_V1_and_physical_V2_pass; the separate g5_clock_direct_v3_failure entry records the failed one-hour runtime gate"
+    },
+    "g5_clock_direct_v3_failure": {
+      "status": "fail",
+      "marker": "boot_trace_v10_s1gq_g5_clock_direct",
+      "capture": "tools/logs/soak_COM7_20260830_s1gq_v3_retry.log",
+      "reason": "HP_SYS_HP_WDT_RESET",
+      "reason_code": 7,
+      "prev_t_ms": 4135939,
+      "prev_phase": "MQTT_STATE_OK",
+      "panic_last": "none",
+      "core0_saved_pc": "0x4fc05bda",
+      "core1_saved_pc": "0x4ff0f418",
+      "core1_addr2line": "xTaskIncrementTickOtherCores freertos_tasks_c_additions.h:125",
+      "face_active": 0,
+      "face_flush": "1682/1682",
+      "rollback_log": "tools/logs/rollback_COM7_20260830_s1gq_to_s1fw.log",
+      "rollback_capture": "tools/logs/boot_COM7_20260830_102813.log",
+      "causal_boundary": "isolated_runtime_gate_failed; phase and saved PCs do not prove Clock directly caused the WDT"
+    }
+  },
+  "runtime_evidence": {
+    "index_reader": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gg_g4_frame_source",
+      "boundary": "covered_by_session_v2_and_user_one_time_soak_adjudication"
+    },
+    "frame_source": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gg_g4_frame_source",
+      "boundary": "covered_by_session_v2_and_user_one_time_soak_adjudication"
+    },
+    "decoder": {
+      "status": "fail",
+      "marker": "boot_trace_v10_s1gh_g4_decoder",
+      "boundary": "natural_hp_wdt_load_access_fault_after_997042ms"
+    },
+    "playback_clock": {
+      "status": "fail",
+      "marker": "boot_trace_v10_s1gq_g5_clock_direct",
+      "boundary": "direct-binding passed V0_RELEASE, V1 and physical V2 but natural HP WDT at 4135939ms failed V3",
+      "prior_inconclusive_marker": "boot_trace_v10_s1gi_g4_clock",
+      "prior_failed_marker": "boot_trace_v10_s1gk_g4_clock_isolated",
+      "v1_status": "pass",
+      "v1_capture": "tools/logs/boot_COM7_20260830_081210.log",
+      "startup_soak": "tools/logs/soak_COM7_20260830_s1gq_startup_5m.log",
+      "v1_observed_uptime_ms": 322219,
+      "v2_status": "pass",
+      "v2_human_experience": "pass_all_real_device_scenarios",
+      "report": "tools/validation/gate/reports/g5_clock_direct_binding_candidate.json",
+      "fatal_total": 1,
+      "v3_status": "fail",
+      "v3_capture": "tools/logs/soak_COM7_20260830_s1gq_v3_retry.log",
+      "v3_prev_t_ms": 4135939,
+      "rollback_capture": "tools/logs/boot_COM7_20260830_102813.log",
+      "prior_failure_capture": "tools/logs/crash_COM7_20260826_1800_s1gk.log",
+      "prior_failure_prev_t_ms": 3445743
+    },
+    "present_sink": {
+      "status": "pass",
+      "marker": "boot_trace_v10_s1gp_g4_present_sink",
+      "boundary": "present_sink_production_v1_plus_all_scenarios_v2_plus_user_defined_one_hour_zero_fatal_gate",
+      "report": "tools/validation/gate/reports/s1gp_runtime_closeout.json"
+    }
+  }
+}

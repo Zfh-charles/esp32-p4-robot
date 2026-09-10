@@ -1,0 +1,148 @@
+{
+  "schema": "character-pack-v3",
+  "version": 3,
+  "pack": {
+    "id": "xiaozhi-current-ip-v5p3",
+    "generation_id": "gen-current-001",
+    "source_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "character": {
+    "id": "xiaozhi-current-ip",
+    "display_name": "当前小智角色",
+    "archetype": "human",
+    "canvas": {"width": 480, "height": 480, "pixel_format": "rgb565-le"}
+  },
+  "canonical_emotions": {
+    "standby": {
+      "state": "supported",
+      "backend": "composite_sprite",
+      "canonical_base": {
+        "asset": "standby/hold_base.rgb565",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "features": {"mouth": true, "eyes": true, "body_life": true, "transition": false},
+      "layers": [
+        {
+          "name": "mouth_face",
+          "composition": "precomposed_opaque",
+          "assets": [
+            {
+              "path": "standby/mouth_face/closed.rgb565",
+              "sha256": "0101010101010101010101010101010101010101010101010101010101010101",
+              "pose_id": "rest_closed"
+            }
+          ]
+        },
+        {
+          "name": "body_life",
+          "composition": "precomposed_opaque",
+          "assets": [
+            {
+              "path": "standby/body_life/breathe_01.rgb565",
+              "sha256": "0202020202020202020202020202020202020202020202020202020202020202",
+              "pose_id": "rest_breathe_01"
+            }
+          ]
+        }
+      ],
+      "resource_claims": ["visual.standby.life.low"],
+      "review": {"status": "approved", "notes": "下半身生命轨，拒绝头发单区重复运动"}
+    },
+    "happy": {
+      "state": "supported",
+      "backend": "composite_sprite",
+      "canonical_base": {
+        "asset": "happy/hold_base.rgb565",
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "features": {"mouth": true, "eyes": true, "body_life": true, "transition": true},
+      "layers": [
+        {
+          "name": "mouth_face",
+          "composition": "precomposed_opaque",
+          "assets": [
+            {
+              "path": "happy/mouth_face/medium.rgb565",
+              "sha256": "1212121212121212121212121212121212121212121212121212121212121212",
+              "pose_id": "happy_medium"
+            }
+          ]
+        }
+      ],
+      "resource_claims": ["visual.speaking.mouth"],
+      "review": {"status": "approved", "notes": "嘴、下巴、脸颊同一预合成层"}
+    },
+    "sad": {
+      "state": "degraded",
+      "backend": "static_seed",
+      "canonical_base": {
+        "asset": "sad/hold_base.rgb565",
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "layers": [],
+      "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "现阶段静态回退，等待同base分层资源"}
+    },
+    "angry": {
+      "state": "degraded",
+      "backend": "static_seed",
+      "canonical_base": {
+        "asset": "angry/hold_base.rgb565",
+        "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "features": {"mouth": false, "eyes": false, "body_life": false, "transition": false},
+      "layers": [],
+      "resource_claims": ["visual.emotion.static"],
+      "review": {"status": "approved", "notes": "强情绪先静态，禁止复活花糊退场轨"}
+    },
+    "loving": {
+      "state": "supported",
+      "backend": "composite_sprite",
+      "canonical_base": {
+        "asset": "loving/hold_base.rgb565",
+        "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      "features": {"mouth": true, "eyes": true, "body_life": false, "transition": false},
+      "layers": [
+        {
+          "name": "mouth_face",
+          "composition": "precomposed_opaque",
+          "assets": [
+            {
+              "path": "loving/mouth_face/small.rgb565",
+              "sha256": "4545454545454545454545454545454545454545454545454545454545454545",
+              "pose_id": "loving_small"
+            }
+          ]
+        }
+      ],
+      "resource_claims": ["visual.speaking.mouth"],
+      "review": {"status": "pending", "notes": "待P1接缝预览确认"}
+    },
+    "neutral": {
+      "state": "supported",
+      "backend": "composite_sprite",
+      "canonical_base": {
+        "asset": "neutral/hold_base.rgb565",
+        "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "features": {"mouth": true, "eyes": true, "body_life": false, "transition": false},
+      "layers": [
+        {
+          "name": "mouth_face",
+          "composition": "precomposed_opaque",
+          "assets": [
+            {
+              "path": "neutral/mouth_face/closed.rgb565",
+              "sha256": "5656565656565656565656565656565656565656565656565656565656565656",
+              "pose_id": "neutral_closed"
+            }
+          ]
+        }
+      ],
+      "resource_claims": ["visual.speaking.mouth"],
+      "review": {"status": "pending", "notes": "待P1自动分析"}
+    }
+  }
+}

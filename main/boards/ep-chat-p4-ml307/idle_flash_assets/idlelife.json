@@ -1,0 +1,60 @@
+{
+  "schema": "idle-flash-band-v1",
+  "character_id": "judy-v5p6",
+  "pack_schema": "dialogue-emotion-pack-v2",
+  "emotion": "standby",
+  "semantic": "body_breathe",
+  "source_generation_id": "6578e786e7edb6ae762d",
+  "base_rgb565_sha256": "958d1253c3a859af1789d19ac5a070a67a74774b101ebcd03409bc0492797eaf",
+  "pixel_format": "rgb565-le",
+  "width": 480,
+  "height": 48,
+  "y": 384,
+  "stride_bytes": 960,
+  "opaque_full_width": true,
+  "max_rows_per_tick": 48,
+  "frame_interval_ms": 240,
+  "rest_ms": {
+    "min": 4200,
+    "max": 6900
+  },
+  "busy_policy": "abort_to_base_no_replay",
+  "returns_to_base": true,
+  "source_roi": {
+    "x": 24,
+    "y": 384,
+    "width": 448,
+    "height": 48
+  },
+  "frames": [
+    {
+      "file": "idl0.rgb",
+      "bytes": 46080,
+      "sha256": "8063ddd7415c8c4f1d5175bb520862ea86fd9bf2b6ddd953fea83984c726646d",
+      "source_sequence": 1,
+      "source_frame": 35
+    },
+    {
+      "file": "idl1.rgb",
+      "bytes": 46080,
+      "sha256": "6f0b8c961ce92875c1d73268534ea86c9619287aaf8fde44359a6682d6064e3f",
+      "source_sequence": 4,
+      "source_frame": 38
+    },
+    {
+      "file": "idl2.rgb",
+      "bytes": 46080,
+      "sha256": "8063ddd7415c8c4f1d5175bb520862ea86fd9bf2b6ddd953fea83984c726646d",
+      "source_sequence": 7,
+      "source_frame": 35
+    },
+    {
+      "file": "idl3.rgb",
+      "bytes": 46080,
+      "sha256": "6825411897dce0f295935b5f1821e558446f5d2d8b89dba8888dfa47bd440b57",
+      "source_sequence": 8,
+      "source_frame": 34
+    }
+  ],
+  "resource_bytes": 184320
+}

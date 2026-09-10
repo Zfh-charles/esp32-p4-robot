@@ -1,0 +1,29 @@
+{
+  "schema_version": "p4.trace.v1",
+  "trace_id": "s1gb-exit-second-wake-minimal",
+  "source": {"fw_marker": "boot_trace_v10_s1gb_g2", "environment": "log"},
+  "sanitized": true,
+  "events": [
+    {"seq": 10, "t_ms": 0, "type": "Session.ExitRequested"},
+    {"seq": 11, "t_ms": 205, "type": "Session.Closed"},
+    {"seq": 12, "t_ms": 2300, "type": "Wake.Detected", "payload": {"round": 2}},
+    {"seq": 13, "t_ms": 2524, "type": "Session.Listening", "payload": {"round": 2}}
+  ],
+  "expected": {
+    "effects": [
+      {"seq": 20, "type": "Session.Close", "caused_by_event_seq": 10},
+      {"seq": 21, "type": "Wake.Enable", "caused_by_event_seq": 11},
+      {"seq": 22, "type": "Session.Begin", "caused_by_event_seq": 12},
+      {"seq": 23, "type": "Audio.OpenUplink", "caused_by_event_seq": 13}
+    ],
+    "m_plus": [
+      {"id": "wake_reenabled", "target": "effect", "type": "Wake.Enable", "min_count": 1},
+      {"id": "second_session_begins", "target": "effect", "type": "Session.Begin", "min_count": 1}
+    ],
+    "m_minus": [{"id": "second_wake_not_ignored", "target": "effect", "type": "Session.IgnoreWake", "max_count": 0}],
+    "invariants": [
+      {"id": "close_before_enable", "kind": "effect_order", "before_type": "Session.Close", "after_type": "Wake.Enable"},
+      {"id": "enable_caused_by_closed", "kind": "cause_type", "effect_type": "Wake.Enable", "event_type": "Session.Closed"}
+    ]
+  }
+}

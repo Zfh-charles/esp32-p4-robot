@@ -1,0 +1,10 @@
+{
+  "schema": "visual-intent-commit-v1", "version": 1,
+  "kind": "visual_commit", "emotion": "standby", "phase": "idle",
+  "generation": 42, "deadline_ms": 250,
+  "desired_layers": ["body_life"],
+  "backend": "composite_sprite", "composition": "precomposed_opaque",
+  "base_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "pose_id": "life_01", "resource_claim": "visual.standby.life.low",
+  "drop_policy": "drop_expired_no_replay"
+}

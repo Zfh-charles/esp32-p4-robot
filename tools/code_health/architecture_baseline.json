@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "default_new_file_max_lines": 500,
+  "legacy_file_line_limits": {
+    "main/application.cc": 2823,
+    "main/assets.cc": 555,
+    "main/audio/audio_service.cc": 1124,
+    "main/boards/common/esp32_camera.cc": 700,
+    "main/boards/echoear/EchoEar.cc": 633,
+    "main/boards/ep-chat-p4-ml307/eezui_display_adapter.cc": 4438,
+    "main/boards/ep-chat-p4-ml307/emotion_video_player.c": 2674,
+    "main/boards/ep-chat-p4-ml307/emotion_video_player.h": 792,
+    "main/boards/ep-chat-p4-ml307/face_mouth_layer.cc": 833,
+    "main/boards/ep-chat-p4-ml307/screen_presenter.cc": 675,
+    "main/boards/ep-chat-p4-ml307/sd_scanner.c": 529,
+    "main/boards/esp-s3-lcd-ev-board-2/esp_lcd_gc9503.c": 504,
+    "main/boards/esp-s3-lcd-ev-board/esp_lcd_gc9503.c": 504,
+    "main/boards/otto-robot/otto_movements.cc": 763,
+    "main/boards/sensecap-watcher/sensecap_watcher.cc": 644,
+    "main/boards/sensecap-watcher/sscma_camera.cc": 689,
+    "main/boards/taiji-pi-s3/taiji_pi_s3.cc": 664,
+    "main/debug/wdt_contention_diag.c": 538,
+    "main/display/emote_display.cc": 655,
+    "main/display/lcd_display.cc": 1121,
+    "main/display/lvgl_display/gif/gifdec.c": 821,
+    "main/mcp_server.cc": 659,
+    "main/protocols/mqtt_protocol.cc": 624
+  },
+  "hotspot_files": [
+    "main/application.cc",
+    "main/boards/ep-chat-p4-ml307/eezui_display_adapter.cc",
+    "main/boards/ep-chat-p4-ml307/emotion_video_player.c"
+  ],
+  "hotspot_total_max_lines": 9935,
+  "board_conditional_limits": {
+    "main/application.cc": 23,
+    "main/application.h": 3
+  },
+  "board_conditional_token": "CONFIG_BOARD_TYPE_EP_CHAT_P4_ML307",
+  "allowed_application_board_includes": [
+    "boards/ep-chat-p4-ml307/face_route_v2.h",
+    "boards/ep-chat-p4-ml307/visual_budget_v2.h",
+    "boards/ep-chat-p4-ml307/visual_commit_shadow.h"
+  ],
+  "clean_layer_roots": [
+    "main/domain/",
+    "main/use_cases/"
+  ],
+  "clean_layer_max_lines": 500,
+  "clean_layer_forbidden_include_fragments": [
+    "freertos/",
+    "driver/",
+    "esp_",
+    "lvgl",
+    "boards/",
+    "audio_codec",
+    "mqtt_protocol",
+    "websocket_protocol"
+  ]
+}

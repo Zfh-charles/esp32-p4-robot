@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xiaozhi.local/schemas/resource-claim-v1.schema.json",
+  "title": "Resource Claim v1",
+  "type": "object",
+  "required": [
+    "schema", "version", "name", "producer", "class", "timing", "memory",
+    "burst", "dma_domains", "power", "policy"
+  ],
+  "properties": {
+    "schema": {"const": "resource-claim-v1"},
+    "version": {"const": 1},
+    "name": {"type": "string", "minLength": 1},
+    "producer": {"type": "string", "minLength": 1},
+    "class": {
+      "enum": [
+        "realtime_audio", "control", "safety", "perception", "inference",
+        "visual", "storage", "telemetry"
+      ]
+    },
+    "timing": {
+      "type": "object",
+      "required": ["deadline_ms", "wcet_us", "period_ms"],
+      "properties": {
+        "deadline_ms": {"type": "integer", "minimum": 1},
+        "wcet_us": {"type": "integer", "minimum": 1},
+        "period_ms": {"type": ["integer", "null"], "minimum": 1}
+      },
+      "additionalProperties": false
+    },
+    "memory": {
+      "type": "object",
+      "required": ["internal_sram_bytes", "psram_bytes"],
+      "properties": {
+        "internal_sram_bytes": {"type": "integer", "minimum": 0},
+        "psram_bytes": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "burst": {
+      "type": "object",
+      "required": ["psram_read_bytes", "psram_write_bytes"],
+      "properties": {
+        "psram_read_bytes": {"type": "integer", "minimum": 0},
+        "psram_write_bytes": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "dma_domains": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "power": {
+      "type": "object",
+      "required": ["average_mw", "peak_mw"],
+      "properties": {
+        "average_mw": {"type": ["number", "null"], "minimum": 0},
+        "peak_mw": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "required": ["droppable", "queue", "expiry_ms", "degradation_chain"],
+      "properties": {
+        "droppable": {"type": "boolean"},
+        "queue": {
+          "enum": ["latest_value", "drop_old", "coalesce", "run_to_completion"]
+        },
+        "expiry_ms": {"type": ["integer", "null"], "minimum": 1},
+        "degradation_chain": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

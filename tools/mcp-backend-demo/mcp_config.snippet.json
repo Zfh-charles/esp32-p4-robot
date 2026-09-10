@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "backend-alert-demo": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["backend_alert.py"],
+      "cwd": "tools/mcp-backend-demo"
+    }
+  }
+}
